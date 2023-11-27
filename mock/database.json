@@ -1,113 +1,70 @@
 {
   "produtos": [
     {
-      "id": 1,
-      "nome": "Caneta",
-      "valor": 3.5,
-      "quantidade": 22,
-      "estoqueMin": 10,
-      "validade": "12-10-2024"
-    },
-    {
-      "id": 2,
-      "nome": "Lápis",
-      "valor": 1.2,
-      "quantidade": 30,
-      "estoqueMin": 15,
-      "validade": "05-08-2023"
-    },
-    {
-      "id": 3,
-      "nome": "Caderno",
-      "valor": 8.0,
-      "quantidade": 15,
-      "estoqueMin": 5,
-      "validade": "10-06-2025"
-    },
-    {
-      "id": 4,
-      "nome": "Borracha",
-      "valor": 0.75,
-      "quantidade": 50,
-      "estoqueMin": 20,
-      "validade": "02-04-2023"
-    },
-    {
-      "id": 5,
       "nome": "Régua",
       "valor": 2.5,
       "quantidade": 18,
       "estoqueMin": 8,
-      "validade": "15-11-2024"
+      "id": 5
     },
     {
       "id": 6,
       "nome": "Mochila",
-      "valor": 20.0,
+      "valor": 20,
       "quantidade": 10,
-      "estoqueMin": 5,
-      "validade": "20-09-2025"
+      "estoqueMin": 5
     },
     {
       "id": 7,
       "nome": "Camiseta",
-      "valor": 25.0,
+      "valor": 25,
       "quantidade": 15,
-      "estoqueMin": 8,
-      "validade": "15-08-2024"
+      "estoqueMin": 8
     },
     {
       "id": 8,
       "nome": "Tênis",
-      "valor": 80.0,
-      "quantidade": 5,
-      "estoqueMin": 2,
-      "validade": "10-12-2023"
+      "valor": 80,
+      "quantidade": 9
     },
     {
-      "id": 9,
       "nome": "Laptop",
-      "valor": 1200.0,
+      "valor": 1200,
       "quantidade": 2,
       "estoqueMin": 1,
-      "validade": "05-05-2026"
+      "id": 9
     },
     {
       "id": 10,
       "nome": "Fone de Ouvido",
-      "valor": 50.0,
-      "quantidade": 20,
-      "estoqueMin": 10,
-      "validade": "30-11-2024"
+      "valor": 50,
+      "quantidade": 16
     },
     {
       "id": 11,
       "nome": "Livro",
-      "valor": 15.0,
+      "valor": 15,
       "quantidade": 30,
-      "estoqueMin": 15,
-      "validade": "25-03-2025"
+      "estoqueMin": 15
     },
     {
       "id": 12,
       "nome": "Cadeira",
-      "valor": 90.0,
+      "valor": 90,
       "quantidade": 8,
-      "estoqueMin": 4,
-      "validade": "12-07-2023"
+      "estoqueMin": 4
     },
     {
       "id": 13,
       "nome": "Relógio",
-      "valor": 60.0,
+      "valor": 60,
       "quantidade": 12,
-      "estoqueMin": 6,
-      "validade": "18-09-2025"
+      "estoqueMin": 6
     },
     {
       "id": 14,
       "nome": "Máquina de Café",
-      "valor": 100.0,
+      "valor": 100,
       "quantidade": 3,
       "estoqueMin": 1,
       "validade": "08-02-2024"
@@ -115,18 +72,16 @@
     {
       "id": 15,
       "nome": "Bola de Futebol",
-      "valor": 30.0,
+      "valor": 30,
       "quantidade": 25,
-      "estoqueMin": 12,
-      "validade": "22-06-2023"
+      "estoqueMin": 12
     },
     {
       "id": 16,
       "nome": "Notebook",
-      "valor": 1500.0,
+      "valor": 1500,
       "quantidade": 4,
-      "estoqueMin": 2,
-      "validade": "10-04-2026"
+      "estoqueMin": 2
     }
   ]
 }

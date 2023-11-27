@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { TProdutos, produtosServices } from "../api/querys";
 import {
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContentText,
+  DialogTitle,
+  Icon,
   LinearProgress,
   Pagination,
   Paper,
@@ -13,7 +19,10 @@ import {
   TableHead,
   TableRow,
   TextField,
+  useTheme,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 
 export const Estoque = () => {
   const [rows, setRows] = useState<TProdutos[]>([]);
@@ -21,6 +30,22 @@ export const Estoque = () => {
   const [isloading, setIsloading] = useState(false);
   const [paginaAtual, setPaginaAtual] = useState(1);
   const [busca, setBusca] = useState("");
+  const [idDelete, setIdDelete] = useState(0);
+  const [openAviso, setOpenAviso] = useState(false);
+
+
+const theme = useTheme()
+  const navigate = useNavigate();
+  const setParamsNavigate = (id: string) => {
+    navigate(`/estoque/edicao/${id}`);
+  };
+
+
+
+  const funcBusca = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBusca(e.target.value);
+    setPaginaAtual(1);
+  };
 
   useEffect(() => {
     setIsloading(true);
@@ -36,27 +61,55 @@ export const Estoque = () => {
       }
     });
   }, [paginaAtual, busca]);
+
+  const setIdIRemove = (id: number) => {
+    setOpenAviso(true);
+    setIdDelete(id);
+  };
+
+  const funcRemoveItem = () => {
+    produtosServices.remove(idDelete).then((result) => {
+      if (result instanceof Error) {
+        alert("Erro ao deletar");
+        setOpenAviso(false);
+      } else {
+        const newRows = rows.filter((item) => item.id !== idDelete);
+        setRows(newRows);
+        setOpenAviso(false);
+      }
+    });
+  };
+
   return (
-    <Box>
-      <Box sx={{ margin: 1 }}>
+   <>
+      <Box sx={{ margin: 1, display:"flex", justifyContent:"space-between" }}>
         <TextField
           variant="standard"
           label="Campo de buscar"
-          onChange={(e) => setBusca(e.target.value)}
+          onChange={funcBusca}
+          
         />
+          <Box 
+      display={"flex"}
+      justifyContent={"center"}
+      marginRight={3}
+      >
+        <Button variant="contained">
+          <Icon>add</Icon> Novo 
+        </Button>
+      </Box>
       </Box>
       <TableContainer
         component={Paper}
         variant="outlined"
-        sx={{ margin: 1, width: "auto" }}
+        sx={{ margin: 1, width:"auto" }}
       >
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Ações</TableCell>
+              <TableCell sx={{ padding: "0 50px" }}>Ações</TableCell>
               <TableCell>Nome</TableCell>
               <TableCell>Preço</TableCell>
-              <TableCell>Validade</TableCell>
               <TableCell>Quantidade</TableCell>
             </TableRow>
           </TableHead>
@@ -64,10 +117,16 @@ export const Estoque = () => {
           <TableBody>
             {rows.map((item) => (
               <TableRow key={item.id}>
-                <TableCell>Ações</TableCell>
+                <TableCell>
+                  <Button onClick={() => setParamsNavigate(item.id.toString())}>
+                    <Icon>edit</Icon>
+                  </Button>
+                  <Button onClick={() => setIdIRemove(item.id)}>
+                    <Icon>delete</Icon>
+                  </Button>
+                </TableCell>
                 <TableCell>{item.nome}</TableCell>
                 <TableCell>{item.valor}</TableCell>
-                <TableCell>{item.validade}</TableCell>
                 <TableCell>{item.quantidade}</TableCell>
               </TableRow>
             ))}
@@ -88,9 +147,24 @@ export const Estoque = () => {
             count={Math.ceil(totalCount / 6)}
             page={paginaAtual}
             onChange={(e, valor) => setPaginaAtual(valor)}
+            sx={{background:theme.palette.primary.light}}
           />
         )}
       </TableContainer>
-    </Box>
+
+      <Dialog open={openAviso} onClose={() => setOpenAviso(false)}>
+        <DialogTitle sx={{ color: "red" }}>Aviso!</DialogTitle>
+        <DialogContentText sx={{ padding: 1 }}>
+          Deseja realmente excluir este registro?
+        </DialogContentText>
+
+        <DialogActions>
+          <Button onClick={() => setOpenAviso(false)}>Cancelar</Button>
+          <Button onClick={funcRemoveItem}>Confirmar</Button>
+        </DialogActions>
+      </Dialog>
+
+    
+      </>
   );
 };
