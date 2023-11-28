@@ -1,44 +1,25 @@
 {
   "produtos": [
     {
-      "nome": "Régua",
-      "valor": 2.5,
-      "quantidade": 18,
-      "estoqueMin": 8,
-      "id": 5
+      "nome": "Borracha",
+      "valor": 2.52,
+      "quantidade": 12,
+      "estoqueMin": 5,
+      "id": 8
     },
     {
-      "id": 6,
-      "nome": "Mochila",
-      "valor": 20,
-      "quantidade": 10,
-      "estoqueMin": 5
-    },
-    {
-      "id": 7,
-      "nome": "Camiseta",
-      "valor": 25,
-      "quantidade": 15,
-      "estoqueMin": 8
-    },
-    {
-      "id": 8,
-      "nome": "Tênis",
-      "valor": 80,
-      "quantidade": 9
-    },
-    {
-      "nome": "Laptop",
-      "valor": 1200,
+      "nome": "Computador",
+      "valor": 122.33,
       "quantidade": 2,
       "estoqueMin": 1,
       "id": 9
     },
     {
-      "id": 10,
       "nome": "Fone de Ouvido",
       "valor": 50,
-      "quantidade": 16
+      "quantidade": 16,
+      "estoqueMin": 12,
+      "id": 10
     },
     {
       "id": 11,
@@ -55,11 +36,11 @@
       "estoqueMin": 4
     },
     {
-      "id": 13,
-      "nome": "Relógio",
+      "nome": "Relógio teste",
       "valor": 60,
       "quantidade": 12,
-      "estoqueMin": 6
+      "estoqueMin": 6,
+      "id": 13
     },
     {
       "id": 14,

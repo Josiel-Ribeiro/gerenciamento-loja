@@ -145,7 +145,9 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
           </Typography>
         </Box>
 
+ 
      {children}
+
       </Box>
     </>
   );

@@ -17,7 +17,7 @@ export type TResponse = {
 const getFilter = async (page = 3, filter = ""): Promise<TResponse | Error> => {
   try {
     const result = await axios.get(
-      `http://localhost:3333/produtos?_page=${page}&_limit=${6}&nome_like=${filter}`
+      `http://localhost:3333/produtos?_page=${page}&_limit=${5}&nome_like=${filter}`
     );
     if (result) {
       const totalCount = result.headers["x-total-count"];

@@ -1,7 +1,7 @@
-import { Box, Button, Grid,  TextField, Typography, useTheme } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogTitle, Grid,  Icon,  TextField, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {  produtosServices } from "../api/querys";
+import {  produtosServices } from "../../api/querys";
 
 
 
@@ -11,41 +11,49 @@ export const EdicaoProdutos = () => {
 
  
 
-  const [ nome,setNome] = useState("")
-  const [ valor,setValor] = useState(0)
-  const [ quantidade,setQuantidade] = useState(0)
-  const [ estoqueMin,setEstoqueMin] = useState(0)
+  const [ nome,setNome] = useState('')
+  const [ valor,setValor] = useState('')
+  const [ quantidade,setQuantidade] = useState("")
+  const [ estoqueMin,setEstoqueMin] = useState("")
 
 
   
+
 
   const theme = useTheme();
  const navigate = useNavigate()
 
-  const saveEdit = ()=>{
-
-    const dados = {id:idNumero, nome,valor,quantidade,estoqueMin}
-  produtosServices.update(dados)
-  .then((result)=>{
-    if(result instanceof Error){
-        alert("Error na ediçao")
-    }return;
-  })
-  
- navigate("/estoque")
-  }
 
 const handleSetNome = (e: React.ChangeEvent<HTMLInputElement>)=>{
-setNome(e.target.value)
+const inputNome = e.target.value
+if(inputNome !== null && inputNome !== undefined){
+  setNome(inputNome)
+}
 }
 const handleSetValor= (e: React.ChangeEvent<HTMLInputElement>)=>{
-    setValor(Number(e.target.value))
+ 
+  const cleanedValue = e.target.value.replace(/[^0-9]/g, '')
+  if(  cleanedValue !== null && valor !== undefined ){
+    const isValid = /^(\d*\.?\d{0,2}|\.\d{1,2})$/.test(cleanedValue);
+
+    if (isValid) {
+      setValor(cleanedValue);
+    
+    }
+  }
+  
 }
 const handleSetQuantidade= (e: React.ChangeEvent<HTMLInputElement>)=>{
-    setQuantidade(Number(e.target.value))
+  const cleanedValue = e.target.value.replace(/[^0-9]/g, '')
+  if(  cleanedValue !== null && valor !== undefined ){
+    setQuantidade(cleanedValue)
+  }
 }
 const handleSetEstoqueMin= (e: React.ChangeEvent<HTMLInputElement>)=>{
-    setEstoqueMin(Number(e.target.value))
+  const cleanedValue = e.target.value.replace(/[^0-9]/g, '')
+  if(  cleanedValue !== null && valor !== undefined ){
+    setEstoqueMin(cleanedValue)
+  }
 }
 
   useEffect(() => {
@@ -54,16 +62,45 @@ const handleSetEstoqueMin= (e: React.ChangeEvent<HTMLInputElement>)=>{
         alert(result);
       } else {
         setNome(result.nome)
-        setValor(result.valor)
-        setQuantidade(result.quantidade)
-        setEstoqueMin(result.estoqueMin)
+        setValor(result.valor.toString())
+        setQuantidade(result.quantidade.toString())
+        setEstoqueMin(result.estoqueMin.toString())
       }
     });
   }, []);
+
+
+  
+  const saveEdit = ()=>{
+    const valorFormatado = Number(parseFloat(valor).toFixed(2))
+    const dados = {id:idNumero, nome,valor:Number(valorFormatado),quantidade:Number(quantidade),estoqueMin:Number(estoqueMin)}
+
+    
+     if(dados.valor > 0){
+      produtosServices.update(dados)
+      .then((result)=>{
+        if(result instanceof Error){
+            alert("Error na ediçao")
+        }return;
+      })
+     }else{
+      alert("O valor do produto deve ser maior que 0")
+      return;
+     }
+      
+      navigate("/estoque")
+
+    
+    
+ 
+  
+ 
+  }
   return (
     <>
     <Box
       component="form"
+       onSubmit={saveEdit}
       sx={{
         width: "80%",
         height: "100%",
@@ -97,9 +134,11 @@ const handleSetEstoqueMin= (e: React.ChangeEvent<HTMLInputElement>)=>{
           }}
         >
           <TextField
+           required
           label="Nome"
           value={nome}
          
+          
             onChange={handleSetNome}
             variant="filled"
   
@@ -108,25 +147,31 @@ const handleSetEstoqueMin= (e: React.ChangeEvent<HTMLInputElement>)=>{
         </Grid>
         <Grid item>
           <TextField
-          label="Valor"
+          
+           required
+          label={<Icon>paid</Icon>}
           onChange={handleSetValor}
            value={valor}
+        
            
           
             sx={{ width: theme.spacing(20), marginLeft: 2,marginTop:2 }}
           />
           <TextField
+           required
           label="Quantidade"
           onChange={handleSetQuantidade}
            value={quantidade}
-         
+        
        
             sx={{ width: theme.spacing(20), marginLeft: 2,marginTop:2}}
           />
           <TextField
+          required
           label="Estoque minino"
           onChange={handleSetEstoqueMin}
            value={estoqueMin}
+          
          
            
             sx={{ width: theme.spacing(20), marginLeft: 2, marginTop:2 }}
@@ -134,8 +179,11 @@ const handleSetEstoqueMin= (e: React.ChangeEvent<HTMLInputElement>)=>{
         </Grid>
       </Grid>
 
-      <Button type="submit" variant="contained" onClick={saveEdit}>Salvar</Button>
+     <Button variant="contained"  type="submit">Salvar</Button>
+     <Button onClick={()=>navigate("/estoque")}><Icon>arrow_back</Icon></Button>
     </Box>
+
+   
 
     
     </>

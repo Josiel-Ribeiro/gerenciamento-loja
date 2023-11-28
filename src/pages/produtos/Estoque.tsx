@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TProdutos, produtosServices } from "../api/querys";
+import { TProdutos, produtosServices } from "../../api/querys";
 import {
   Box,
   Button,
@@ -8,6 +8,7 @@ import {
   DialogContentText,
   DialogTitle,
   Icon,
+  InputAdornment,
   LinearProgress,
   Pagination,
   Paper,
@@ -19,6 +20,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +37,7 @@ export const Estoque = () => {
 
 
 const theme = useTheme()
+const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
   const navigate = useNavigate();
   const setParamsNavigate = (id: string) => {
     navigate(`/estoque/edicao/${id}`);
@@ -84,17 +87,25 @@ const theme = useTheme()
    <>
       <Box sx={{ margin: 1, display:"flex", justifyContent:"space-between" }}>
         <TextField
+        
           variant="standard"
           label="Campo de buscar"
           onChange={funcBusca}
-          
+         
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Icon>search</Icon>
+              </InputAdornment>
+            ),
+          }}
         />
           <Box 
       display={"flex"}
       justifyContent={"center"}
       marginRight={3}
       >
-        <Button variant="contained">
+        <Button variant="contained" onClick={()=>navigate("/estoque/novo")}>
           <Icon>add</Icon> Novo 
         </Button>
       </Box>
@@ -107,17 +118,18 @@ const theme = useTheme()
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ padding: "0 50px" }}>Ações</TableCell>
+              <TableCell sx={{ padding:smDawn? "0 5px":"0 50px" }}>Ações</TableCell>
               <TableCell>Nome</TableCell>
               <TableCell>Preço</TableCell>
               <TableCell>Quantidade</TableCell>
+              <TableCell>Estoque Min</TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
             {rows.map((item) => (
               <TableRow key={item.id}>
-                <TableCell>
+                <TableCell sx={{padding:smDawn? "0":undefined}}>
                   <Button onClick={() => setParamsNavigate(item.id.toString())}>
                     <Icon>edit</Icon>
                   </Button>
@@ -128,6 +140,7 @@ const theme = useTheme()
                 <TableCell>{item.nome}</TableCell>
                 <TableCell>{item.valor}</TableCell>
                 <TableCell>{item.quantidade}</TableCell>
+                <TableCell>{item.estoqueMin}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -142,9 +155,9 @@ const theme = useTheme()
             </TableFooter>
           )}
         </Table>
-        {totalCount > 0 && totalCount > 6 && (
+        {totalCount > 0 && totalCount > 5 && (
           <Pagination
-            count={Math.ceil(totalCount / 6)}
+            count={Math.ceil(totalCount / 5)}
             page={paginaAtual}
             onChange={(e, valor) => setPaginaAtual(valor)}
             sx={{background:theme.palette.primary.light}}
