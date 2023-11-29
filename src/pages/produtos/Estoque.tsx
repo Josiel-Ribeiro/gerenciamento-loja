@@ -20,6 +20,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -27,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export const Estoque = () => {
+  
   const [rows, setRows] = useState<TProdutos[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [isloading, setIsloading] = useState(false);
@@ -34,6 +36,7 @@ export const Estoque = () => {
   const [busca, setBusca] = useState("");
   const [idDelete, setIdDelete] = useState(0);
   const [openAviso, setOpenAviso] = useState(false);
+  
 
 
 const theme = useTheme()
@@ -57,8 +60,6 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
       if (result instanceof Error) {
         alert(result.message);
       } else {
-        console.log(result.data);
-        console.log(result.count);
         setRows(result.data);
         setTotalCount(result.count);
       }
@@ -83,6 +84,8 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
     });
   };
 
+  
+
   return (
    <>
       <Box sx={{ margin: 1, display:"flex", justifyContent:"space-between" }}>
@@ -100,15 +103,19 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
             ),
           }}
         />
+       
+          
           <Box 
       display={"flex"}
       justifyContent={"center"}
       marginRight={3}
       >
+         <Button  sx={{marginRight:4}}>Pendentes de reposição</Button>
         <Button variant="contained" onClick={()=>navigate("/estoque/novo")}>
           <Icon>add</Icon> Novo 
         </Button>
       </Box>
+     
       </Box>
       <TableContainer
         component={Paper}
@@ -137,10 +144,10 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
                     <Icon>delete</Icon>
                   </Button>
                 </TableCell>
-                <TableCell>{item.nome}</TableCell>
-                <TableCell>{item.valor}</TableCell>
-                <TableCell>{item.quantidade}</TableCell>
-                <TableCell>{item.estoqueMin}</TableCell>
+                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":undefined}}>{item.nome}</TableCell>
+                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":undefined}}>{item.valor}</TableCell>
+                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":undefined}}>{item.quantidade}</TableCell>
+                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":undefined}}>{item.estoqueMin}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -157,13 +164,32 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
         </Table>
         {totalCount > 0 && totalCount > 5 && (
           <Pagination
-            count={Math.ceil(totalCount / 5)}
+            count={Math.ceil(totalCount/5)}
             page={paginaAtual}
             onChange={(e, valor) => setPaginaAtual(valor)}
             sx={{background:theme.palette.primary.light}}
           />
         )}
       </TableContainer>
+      <Box   display={"flex"} justifyContent={"center"} alignItems={"center"} gap={3}>
+          <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
+            <Icon sx={{color:"red",marginBottom:2}}>minimize</Icon>
+            <Typography>
+            Necessaria a reposição
+            </Typography>
+            </Box>
+
+
+
+            <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
+            <Icon sx={{color:"white",marginBottom:2}}>minimize</Icon>
+            <Typography>
+            Com estoque necessario
+            </Typography>
+            </Box>
+
+          </Box>
+
 
       <Dialog open={openAviso} onClose={() => setOpenAviso(false)}>
         <DialogTitle sx={{ color: "red" }}>Aviso!</DialogTitle>
