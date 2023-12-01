@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TProdutos, produtosServices } from "../../api/querys";
+import { TProdutos, produtosServices } from "../../api/querysProdutos";
 import {
   Box,
   Button,
@@ -36,6 +36,9 @@ export const Estoque = () => {
   const [busca, setBusca] = useState("");
   const [idDelete, setIdDelete] = useState(0);
   const [openAviso, setOpenAviso] = useState(false);
+  const [reposicao,setReposicao] = useState(0)
+
+
   
 
 
@@ -53,18 +56,50 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
     setPaginaAtual(1);
   };
 
+
+
+  useEffect(()=>{
+ if(totalCount <= 5){
+  setPaginaAtual(1)
+ }
+  },[totalCount])
+
   useEffect(() => {
-    setIsloading(true);
+    
+      setIsloading(true);
     produtosServices.getFilter(paginaAtual, busca).then((result) => {
       setIsloading(false);
       if (result instanceof Error) {
         alert(result.message);
       } else {
-        setRows(result.data);
+
+        const produtosAReposicao = []
+
+        result.data.map(item =>{
+          if(item.quantidade < item.estoqueMin){
+            produtosAReposicao.push(item)
+          }
+        })
+        // Ordena os itens com base na condição quantidade < estoqueMin
+        const listOrder = result.data.sort((a, b) => {
+          const quantidadeA = a.quantidade;
+          const estoqueMinA = a.estoqueMin;
+          const quantidadeB = b.quantidade;
+          const estoqueMinB = b.estoqueMin;
+  
+          // Ajuste a lógica conforme necessário para seus tipos de dados
+          // Neste exemplo, ordenamos de forma decrescente, colocando os itens com quantidade < estoqueMin primeiro
+          return (quantidadeA < estoqueMinA ? -1 : 1) - (quantidadeB < estoqueMinB ? -1 : 1);
+        });
+  
+        setRows(listOrder);
         setTotalCount(result.count);
+        setReposicao(produtosAReposicao.length)
       }
     });
-  }, [paginaAtual, busca]);
+  }, [paginaAtual,totalCount, busca]);
+
+
 
   const setIdIRemove = (id: number) => {
     setOpenAviso(true);
@@ -79,12 +114,14 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
       } else {
         const newRows = rows.filter((item) => item.id !== idDelete);
         setRows(newRows);
+        setTotalCount(rows.length)
         setOpenAviso(false);
       }
     });
   };
 
   
+
 
   return (
    <>
@@ -104,13 +141,15 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
           }}
         />
        
+       
           
           <Box 
       display={"flex"}
       justifyContent={"center"}
       marginRight={3}
       >
-         <Button  sx={{marginRight:4}}>Pendentes de reposição</Button>
+         
+        
         <Button variant="contained" onClick={()=>navigate("/estoque/novo")}>
           <Icon>add</Icon> Novo 
         </Button>
@@ -144,10 +183,10 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
                     <Icon>delete</Icon>
                   </Button>
                 </TableCell>
-                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":undefined}}>{item.nome}</TableCell>
-                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":undefined}}>{item.valor}</TableCell>
-                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":undefined}}>{item.quantidade}</TableCell>
-                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":undefined}}>{item.estoqueMin}</TableCell>
+                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":"white"}}>{item.nome}</TableCell>
+                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":"white"}}>{item.valor}</TableCell>
+                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":"white"}}>{item.quantidade}</TableCell>
+                <TableCell sx={{color:item.quantidade < item.estoqueMin?"red":"white"}}>{item.estoqueMin}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -172,23 +211,28 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
         )}
       </TableContainer>
       <Box   display={"flex"} justifyContent={"center"} alignItems={"center"} gap={3}>
-          <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
-            <Icon sx={{color:"red",marginBottom:2}}>minimize</Icon>
-            <Typography>
-            Necessaria a reposição
-            </Typography>
-            </Box>
+        
 
 
 
-            <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
-            <Icon sx={{color:"white",marginBottom:2}}>minimize</Icon>
-            <Typography>
-            Com estoque necessario
-            </Typography>
-            </Box>
+            
+      <Box width={"100%"} display={"flex"} justifyContent={"center"} gap={2}>
+      <Box >
+          <Typography color={"red"}>
+     Reposição pendente {reposicao}
+          </Typography>
+         </Box>
+
+
+         <Box marginRight={8}>
+          <Typography color={theme.palette.primary.main} >
+     Total {totalCount}
+          </Typography>
+         </Box>
+      
 
           </Box>
+      </Box>
 
 
       <Dialog open={openAviso} onClose={() => setOpenAviso(false)}>

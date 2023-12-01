@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionActions,
+  AccordionSummary,
   Box,
   Button,
   Drawer,
@@ -23,6 +26,10 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
   const [open, setopen] = useState(false);
   const [selectPaginaInicial, setSelectedPagianaInicial] = useState(false);
   const [selectEstoque, setSelectEstoque] = useState(false);
+const [selectAdmVendedores,setSlectAdmVendedores] = useState(false)
+const [selectAdmComicionamento,setSlectAdmComicionamento] = useState(false)
+
+
   const [selectNumeroVendas, setSelectenumeroVendas] = useState(false);
   const [selectCadastro, setSelectCadastro] = useState(false);
 
@@ -35,6 +42,8 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
     setSelectEstoque(false);
     setSelectenumeroVendas(false);
     setSelectCadastro(false);
+    setSlectAdmComicionamento(false)
+    setSlectAdmVendedores(false)
   };
   const navigateEstoque = () => {
     navigate("/estoque");
@@ -42,7 +51,21 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
     setSelectEstoque(true);
     setSelectenumeroVendas(false);
     setSelectCadastro(false);
+    setSlectAdmComicionamento(false)
+    setSlectAdmVendedores(false)
   };
+
+
+  const navigateVendedores = ()=>{
+    navigate('/vendedores')
+    setSelectedPagianaInicial(false);
+    setSelectEstoque(false);
+    setSelectenumeroVendas(false);
+    setSelectCadastro(false);
+    setSlectAdmComicionamento(false)
+    setSlectAdmVendedores(true)
+  }
+ 
 
   return (
     <>
@@ -50,16 +73,17 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
         open={open}
         onClose={() => setopen(false)}
         variant={mdDawn ? "temporary" : "permanent"}
+    
       >
         <Box
-          width={theme.spacing(28)}
+          width={theme.spacing(30)}
           height={"100%"}
           display={"flex"}
           flexDirection={"column"}
           bgcolor={mdDawn ? theme.palette.background.default : undefined}
         >
           <List>
-            <ListItem sx={{ padding: 3 }}>
+            <ListItem sx={{ padding: 3, }}>
               <ListItemButton
                 selected={selectPaginaInicial}
                 onClick={navigatePaginainicial}
@@ -93,33 +117,39 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
             </ListItem>
 
             <ListItem sx={{ padding: 3 }}>
-              <ListItemButton>
+              <ListItemButton selected={selectAdmVendedores} onClick={navigateVendedores}>
                 <Icon>attach_money</Icon>
                 <ListItemText>
                   <Typography sx={{ marginLeft: 2 }}>
-                    Numero de Vendas
+                    Vendedores
                   </Typography>
                 </ListItemText>
               </ListItemButton>
             </ListItem>
 
+           
+           
+
             <ListItem sx={{ padding: 3 }}>
               <ListItemButton>
-                <Icon>how_to_reg</Icon>
+                <Icon>attach_money</Icon>
                 <ListItemText>
                   <Typography sx={{ marginLeft: 2 }}>
-                    Cadastro de vendedores
+                    Comicionamento
                   </Typography>
                 </ListItemText>
               </ListItemButton>
             </ListItem>
+
+           
+
           </List>
         </Box>
       </Drawer>
 
       <Box
         height={"100vh"}
-        marginLeft={mdDawn ? "0" : theme.spacing(28)}
+        marginLeft={mdDawn ? "0" : theme.spacing(30)}
         display={"flex"}
         flexDirection={"column"}
       >
@@ -145,9 +175,9 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
           </Typography>
         </Box>
 
- 
-     {children}
-
+    
+       {children}
+      
       </Box>
     </>
   );

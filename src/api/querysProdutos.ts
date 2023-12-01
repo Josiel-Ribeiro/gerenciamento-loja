@@ -1,5 +1,6 @@
 import axios from "axios";
-import { consumers } from "stream";
+
+
 
 export type TProdutos = {
   id: number;
@@ -33,6 +34,18 @@ const getFilter = async (page = 3, filter = ""): Promise<TResponse | Error> => {
 };
 
 // ...
+const getAll = async():Promise<TResponse | Error> =>{
+ 
+
+  const result = await axios.get("http://localhost:3333/produtos")
+  if(result.data){
+    return result.data
+  }else{
+    return new Error("Erro na busca")
+  }
+
+}
+
 
 const remove = async (id: number): Promise<void | Error> => {
   try {
@@ -70,9 +83,23 @@ const update = async (dados: TProdutos):Promise<void |Error> => {
  }
 };
 
+const create = async(dados:Omit<TProdutos,"id">):Promise<number | Error>=>{
+
+const {data} = await axios.post("http://localhost:3333/produtos", dados)
+if(data){
+  return data.id
+}else{
+  return new Error("Erro ao adicionar")
+}
+
+
+}
+
 export const produtosServices = {
   getFilter,
   remove,
   getId,
-  update
+  update,
+  getAll,
+  create
 };

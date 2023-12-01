@@ -1,21 +1,7 @@
 {
   "produtos": [
     {
-      "nome": "Borracha",
-      "valor": 2.52,
-      "quantidade": 3,
-      "estoqueMin": 5,
-      "id": 8
-    },
-    {
-      "nome": "Computador",
-      "valor": 122.33,
-      "quantidade": 2,
-      "estoqueMin": 1,
-      "id": 9
-    },
-    {
-      "nome": "Fone de Ouvido",
+      "nome": "Teclado",
       "valor": 50,
       "quantidade": 8,
       "estoqueMin": 12,
@@ -29,16 +15,9 @@
       "id": 11
     },
     {
-      "id": 12,
-      "nome": "Cadeira",
-      "valor": 90,
-      "quantidade": 8,
-      "estoqueMin": 4
-    },
-    {
       "nome": "Relógio teste",
-      "valor": 60,
-      "quantidade": 12,
+      "valor": 12.89,
+      "quantidade": 5,
       "estoqueMin": 6,
       "id": 13
     },
@@ -51,18 +30,92 @@
       "validade": "08-02-2024"
     },
     {
-      "id": 15,
-      "nome": "Bola de Futebol",
-      "valor": 30,
-      "quantidade": 25,
-      "estoqueMin": 12
-    },
-    {
-      "id": 16,
       "nome": "Notebook",
       "valor": 1500,
-      "quantidade": 4,
-      "estoqueMin": 2
+      "quantidade": 10,
+      "estoqueMin": 2,
+      "id": 16
+    },
+    {
+      "nome": "Maquina de escrever",
+      "valor": "1300.23",
+      "quantidade": "12",
+      "estoqueMin": "5",
+      "id": 17
+    }
+  ],
+  "vendedores": [
+    {
+      "id": 1,
+      "nome": "Paulo Ricardo",
+      "email": "teste@gmail.com",
+      "telefone": 33999999999
+    },
+    {
+      "nome": "qrerrerwr",
+      "email": "wrwerwerwerwe",
+      "telefone": "12333333333",
+      "id": 2
+    },
+    {
+      "nome": "josiel lucas",
+      "email": "josielLucas615@gmail.com",
+      "telefone": "33998134389",
+      "id": 3
+    },
+    {
+      "nome": "leticia souza",
+      "email": "teste2GSASSAD",
+      "telefone": "11111111111",
+      "id": 4
+    },
+    {
+      "nome": "leticia souza",
+      "email": "teste2GSASSAD",
+      "telefone": "11111111111",
+      "id": 5
+    },
+    {
+      "nome": "leticia souza",
+      "email": "teste2GSASSAD",
+      "telefone": "11111111111",
+      "id": 6
+    },
+    {
+      "nome": "leticia souza",
+      "email": "teste2GSASSAD",
+      "telefone": "11111111111",
+      "id": 7
+    },
+    {
+      "nome": "leticia souza",
+      "email": "teste2GSASSAD",
+      "telefone": "11111111111",
+      "id": 8
+    },
+    {
+      "nome": "leticia souza",
+      "email": "teste2GSASSAD",
+      "telefone": "11111111111",
+      "id": 9
+    },
+    {
+      "nome": "adsdasd",
+      "email": "asdasdasdasd",
+      "telefone": "34242342343",
+      "id": 10
+    },
+    {
+      "nome": "teste",
+      "email": "testefddasfaf",
+      "telefone": "43222222222",
+      "id": 11
+    },
+    {
+      "nome": "teste2",
+      "email": "sdsadasdasds",
+      "telefone": "34244324234",
+      "id": 12
     }
   ]
 }

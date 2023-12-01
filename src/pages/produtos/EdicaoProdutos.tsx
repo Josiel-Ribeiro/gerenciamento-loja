@@ -1,7 +1,7 @@
-import { Box, Button, Dialog, DialogActions, DialogTitle, Grid,  Icon,  TextField, Typography, useTheme } from "@mui/material";
+import { Box, Button,Grid,  Icon,  TextField, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {  produtosServices } from "../../api/querys";
+import {  produtosServices } from "../../api/querysProdutos";
 
 
 
@@ -30,19 +30,17 @@ if(inputNome !== null && inputNome !== undefined){
   setNome(inputNome)
 }
 }
-const handleSetValor= (e: React.ChangeEvent<HTMLInputElement>)=>{
- 
-  const cleanedValue = e.target.value.replace(/[^0-9]/g, '')
-  if(  cleanedValue !== null && valor !== undefined ){
+const handleSetValor = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const cleanedValue = e.target.value.replace(/[^0-9.]/g, '');
+
+  if (cleanedValue !== null && cleanedValue !== undefined) {
     const isValid = /^(\d*\.?\d{0,2}|\.\d{1,2})$/.test(cleanedValue);
 
     if (isValid) {
       setValor(cleanedValue);
-    
     }
   }
-  
-}
+};
 const handleSetQuantidade= (e: React.ChangeEvent<HTMLInputElement>)=>{
   const cleanedValue = e.target.value.replace(/[^0-9]/g, '')
   if(  cleanedValue !== null && valor !== undefined ){
