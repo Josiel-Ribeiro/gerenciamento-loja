@@ -1,61 +1,54 @@
 {
   "produtos": [
     {
-      "nome": "Teclado",
-      "valor": 50,
-      "quantidade": 8,
-      "estoqueMin": 12,
-      "id": 10
-    },
-    {
       "nome": "Livro",
-      "valor": 15,
-      "quantidade": 7,
-      "estoqueMin": 15,
+      "valor": 7,
+      "quantidade": 15,
+      "estoqueMin": 16,
       "id": 11
     },
     {
-      "nome": "Relógio teste",
-      "valor": 12.89,
-      "quantidade": 5,
-      "estoqueMin": 6,
-      "id": 13
-    },
-    {
-      "id": 14,
       "nome": "Máquina de Café",
       "valor": 100,
       "quantidade": 3,
       "estoqueMin": 1,
-      "validade": "08-02-2024"
+      "id": 14
     },
     {
-      "nome": "Notebook",
-      "valor": 1500,
-      "quantidade": 10,
-      "estoqueMin": 2,
+      "nome": "teste",
+      "valor": "12.23",
+      "quantidade": "12",
+      "estoqueMin": "10",
+      "id": 15
+    },
+    {
+      "nome": "mochila",
+      "valor": "120",
+      "quantidade": "19",
+      "estoqueMin": "10",
       "id": 16
     },
     {
-      "nome": "Maquina de escrever",
-      "valor": "1300.23",
-      "quantidade": "12",
-      "estoqueMin": "5",
+      "nome": "teclado",
+      "valor": "60",
+      "quantidade": "11",
+      "estoqueMin": "9",
       "id": 17
+    },
+    {
+      "nome": "teste 2",
+      "valor": "23",
+      "quantidade": "12",
+      "estoqueMin": "32",
+      "id": 18
     }
   ],
   "vendedores": [
     {
-      "id": 1,
-      "nome": "Paulo Ricardo",
+      "nome": "Saulo Ricardo",
       "email": "teste@gmail.com",
-      "telefone": 33999999999
-    },
-    {
-      "nome": "qrerrerwr",
-      "email": "wrwerwerwerwe",
-      "telefone": "12333333333",
-      "id": 2
+      "telefone": 33999999999,
+      "id": 1
     },
     {
       "nome": "josiel lucas",
@@ -64,58 +57,229 @@
       "id": 3
     },
     {
-      "nome": "leticia souza",
-      "email": "teste2GSASSAD",
-      "telefone": "11111111111",
+      "nome": "Victor Lucas",
+      "email": "Victor@gmail.com",
+      "telefone": "21784873847",
       "id": 4
     },
     {
-      "nome": "leticia souza",
-      "email": "teste2GSASSAD",
-      "telefone": "11111111111",
+      "nome": "teste",
+      "email": "teste@Gmail.com",
+      "telefone": "32131231231",
       "id": 5
     },
     {
-      "nome": "leticia souza",
-      "email": "teste2GSASSAD",
-      "telefone": "11111111111",
+      "nome": "thiago",
+      "email": "fndknfjsd@fddfdffdd",
+      "telefone": "44444444444",
       "id": 6
     },
     {
-      "nome": "leticia souza",
-      "email": "teste2GSASSAD",
+      "nome": "juju",
+      "email": "ainda@nao.tem",
       "telefone": "11111111111",
+      "id": 7
+    }
+  ],
+  "vendas": [
+    {
+      "vendedor": "josiel lucas",
+      "venda": [
+        {
+          "id": 11,
+          "produto": "Livro",
+          "valor": 7,
+          "quantidade": 15,
+          "estoqueMin": 15,
+          "quantidadeVendida": 1,
+          "valorTotal": 7
+        },
+        {
+          "id": 17,
+          "produto": "Maquina de escrever",
+          "valor": "1300.23",
+          "quantidade": 12,
+          "estoqueMin": "5",
+          "quantidadeVendida": 1,
+          "valorTotal": 1300.23
+        }
+      ],
+      "total": 1307.23,
+      "data": "01/12/2023",
+      "id": 4
+    },
+    {
+      "vendedor": "Victor Lucas",
+      "venda": [
+        {
+          "id": 11,
+          "produto": "Livro",
+          "valor": 7,
+          "quantidade": 15,
+          "estoqueMin": 15,
+          "quantidadeVendida": 12,
+          "valorTotal": 84
+        },
+        {
+          "id": 14,
+          "produto": "Máquina de Café",
+          "valor": 100,
+          "quantidade": 3,
+          "estoqueMin": 1,
+          "quantidadeVendida": 2,
+          "valorTotal": 200
+        }
+      ],
+      "total": 284,
+      "data": "07/12/2023",
+      "id": 5
+    },
+    {
+      "vendedor": "teste",
+      "venda": [
+        {
+          "id": 11,
+          "produto": "Livro",
+          "valor": 7,
+          "quantidade": 15,
+          "estoqueMin": 15,
+          "quantidadeVendida": 10,
+          "valorTotal": 70
+        },
+        {
+          "id": 14,
+          "produto": "Máquina de Café",
+          "valor": 100,
+          "quantidade": 3,
+          "estoqueMin": 1,
+          "quantidadeVendida": 1,
+          "valorTotal": 100
+        }
+      ],
+      "total": 170,
+      "data": "07/12/2023",
+      "id": 6
+    },
+    {
+      "vendedor": "Saulo Ricardo",
+      "venda": [
+        {
+          "id": 17,
+          "produto": "Maquina de escrever",
+          "valor": "1300.23",
+          "quantidade": 12,
+          "estoqueMin": "5",
+          "quantidadeVendida": 1,
+          "valorTotal": 1300.23
+        }
+      ],
+      "total": 1300.23,
+      "data": "07/12/2023",
       "id": 7
     },
     {
-      "nome": "leticia souza",
-      "email": "teste2GSASSAD",
-      "telefone": "11111111111",
+      "vendedor": "thiago",
+      "venda": [
+        {
+          "id": 11,
+          "produto": "Livro",
+          "valor": 7,
+          "quantidade": 15,
+          "estoqueMin": 15,
+          "quantidadeVendida": 1,
+          "valorTotal": 7
+        },
+        {
+          "id": 16,
+          "produto": "Notebook",
+          "valor": 1500,
+          "quantidade": 10,
+          "estoqueMin": 2,
+          "quantidadeVendida": 3,
+          "valorTotal": 4500
+        },
+        {
+          "id": 17,
+          "produto": "Maquina de escrever",
+          "valor": "1300.23",
+          "quantidade": 12,
+          "estoqueMin": "5",
+          "quantidadeVendida": 3,
+          "valorTotal": 3900.69
+        }
+      ],
+      "total": 8407.69,
+      "data": "07/12/2023",
       "id": 8
     },
     {
-      "nome": "leticia souza",
-      "email": "teste2GSASSAD",
-      "telefone": "11111111111",
+      "vendedor": "juju",
+      "venda": [
+        {
+          "id": 14,
+          "produto": "Máquina de Café",
+          "valor": 100,
+          "quantidade": 3,
+          "estoqueMin": 1,
+          "quantidadeVendida": 1,
+          "valorTotal": 100
+        }
+      ],
+      "total": 100,
+      "data": "07/12/2023",
       "id": 9
     },
     {
-      "nome": "adsdasd",
-      "email": "asdasdasdasd",
-      "telefone": "34242342343",
+      "vendedor": "Victor Lucas",
+      "venda": [
+        {
+          "id": 11,
+          "produto": "Livro",
+          "valor": 7,
+          "quantidade": 15,
+          "estoqueMin": 16,
+          "quantidadeVendida": 2,
+          "valorTotal": 14
+        },
+        {
+          "id": 16,
+          "produto": "mochila",
+          "valor": "120",
+          "quantidade": 19,
+          "estoqueMin": "10",
+          "quantidadeVendida": 1,
+          "valorTotal": 120
+        }
+      ],
+      "total": 134,
+      "data": "07/12/2023",
       "id": 10
     },
     {
-      "nome": "teste",
-      "email": "testefddasfaf",
-      "telefone": "43222222222",
+      "vendedor": "juju",
+      "venda": [
+        {
+          "id": 11,
+          "produto": "Livro",
+          "valor": 7,
+          "quantidade": 15,
+          "estoqueMin": 16,
+          "quantidadeVendida": 1,
+          "valorTotal": 7
+        },
+        {
+          "id": 16,
+          "produto": "mochila",
+          "valor": "120",
+          "quantidade": 19,
+          "estoqueMin": "10",
+          "quantidadeVendida": 1,
+          "valorTotal": 120
+        }
+      ],
+      "total": 127,
+      "data": "07/12/2023",
       "id": 11
-    },
-    {
-      "nome": "teste2",
-      "email": "sdsadasdasds",
-      "telefone": "34244324234",
-      "id": 12
     }
   ]
 }

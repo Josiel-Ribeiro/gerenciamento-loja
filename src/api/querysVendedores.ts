@@ -1,6 +1,6 @@
 import axios from "axios";
 
-
+const urlBase = "http://localhost:3333/vendedores"
 
 export type TVendedores = {
   id:number,
@@ -15,7 +15,7 @@ type TResponse = {
 }
 
 const getAll = async():Promise<TVendedores[] | Error>=>{
-  const response = await axios.get("http://localhost:3333/vendedores")
+  const response = await axios.get(urlBase)
   if(response){
     return response.data
   }else{
@@ -26,7 +26,7 @@ const getAll = async():Promise<TVendedores[] | Error>=>{
 const getFilter = async (page = 3, filter = ""):Promise<TResponse | Error>=> {
   try {
     const result = await axios.get(
-      `http://localhost:3333/vendedores?_page=${page}&_limit=${5}&nome_like=${filter}`
+      `${urlBase}?_page=${page}&_limit=${5}&nome_like=${filter}`
     );
     if (result) {
       const totalCount = result.headers["x-total-count"];
@@ -43,7 +43,7 @@ const getFilter = async (page = 3, filter = ""):Promise<TResponse | Error>=> {
 
 
 const create = async (dados:Omit<TVendedores,"id" >):Promise<number | Error>=>{
-  const {data}  = await axios.post("http://localhost:3333/vendedores",dados)
+  const {data}  = await axios.post(urlBase,dados)
  if(data){
   return data.id
  }else{
@@ -51,10 +51,39 @@ const create = async (dados:Omit<TVendedores,"id" >):Promise<number | Error>=>{
  }
 }
 
+const getId = async(id:number):Promise<TVendedores | Error> =>{
+
+  const response = await axios.get(`${urlBase}/${id}`)
+  if(response.data){
+    return response.data
+  }else{
+    return new Error("erro na busca")
+  }
+}
+
+const update = async(dados:TVendedores)=>{
+
+  const info = {
+    nome:dados.nome,
+    email:dados.email,
+    telefone:dados.telefone
+  }
+  const response = await axios.put(`${urlBase}/${dados.id}`,info)
+  return response.data
+
+}
 // ...
+const remove = async(id:number)=>{
+ const response =  await axios.delete(`${urlBase}/${id}`)
+ return response
+}
 
 export const VendedoresService = {
   getFilter,
   create,
-  getAll
+  getAll,
+  remove,
+  getId,
+  update
+
 }

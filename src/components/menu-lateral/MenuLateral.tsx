@@ -26,9 +26,9 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
   const [open, setopen] = useState(false);
   const [selectPaginaInicial, setSelectedPagianaInicial] = useState(false);
   const [selectEstoque, setSelectEstoque] = useState(false);
-const [selectAdmVendedores,setSlectAdmVendedores] = useState(false)
-const [selectAdmComicionamento,setSlectAdmComicionamento] = useState(false)
-
+  const [selectNovaVenda, setSelectNovaVenda] = useState(false);
+  const [selectAdmVendedores, setSlectAdmVendedores] = useState(false);
+  const [selectAdm, setSelectAdm] = useState(false);
 
   const [selectNumeroVendas, setSelectenumeroVendas] = useState(false);
   const [selectCadastro, setSelectCadastro] = useState(false);
@@ -42,8 +42,9 @@ const [selectAdmComicionamento,setSlectAdmComicionamento] = useState(false)
     setSelectEstoque(false);
     setSelectenumeroVendas(false);
     setSelectCadastro(false);
-    setSlectAdmComicionamento(false)
-    setSlectAdmVendedores(false)
+    setSelectAdm(false);
+    setSlectAdmVendedores(false);
+    setSelectNovaVenda(false);
   };
   const navigateEstoque = () => {
     navigate("/estoque");
@@ -51,21 +52,43 @@ const [selectAdmComicionamento,setSlectAdmComicionamento] = useState(false)
     setSelectEstoque(true);
     setSelectenumeroVendas(false);
     setSelectCadastro(false);
-    setSlectAdmComicionamento(false)
-    setSlectAdmVendedores(false)
+    setSelectAdm(false);
+    setSlectAdmVendedores(false);
+    setSelectNovaVenda(false);
   };
 
-
-  const navigateVendedores = ()=>{
-    navigate('/vendedores')
+  const navigateVendedores = () => {
+    navigate("/vendedores");
     setSelectedPagianaInicial(false);
     setSelectEstoque(false);
     setSelectenumeroVendas(false);
     setSelectCadastro(false);
-    setSlectAdmComicionamento(false)
-    setSlectAdmVendedores(true)
-  }
- 
+    setSelectAdm(false);
+    setSlectAdmVendedores(true);
+    setSelectNovaVenda(false);
+  };
+
+  const navigateNovaVenda = () => {
+    navigate("/nova-venda");
+    setSelectNovaVenda(true);
+    setSelectedPagianaInicial(false);
+    setSelectEstoque(false);
+    setSelectenumeroVendas(false);
+    setSelectCadastro(false);
+    setSelectAdm(false);
+    setSlectAdmVendedores(false);
+  };
+
+  const navigateAdminidtrativo= () => {
+    navigate("/adm");
+    setSelectNovaVenda(false);
+    setSelectedPagianaInicial(false);
+    setSelectEstoque(false);
+    setSelectenumeroVendas(false);
+    setSelectCadastro(false);
+    setSelectAdm(true);
+    setSlectAdmVendedores(false);
+  };
 
   return (
     <>
@@ -73,7 +96,6 @@ const [selectAdmComicionamento,setSlectAdmComicionamento] = useState(false)
         open={open}
         onClose={() => setopen(false)}
         variant={mdDawn ? "temporary" : "permanent"}
-    
       >
         <Box
           width={theme.spacing(30)}
@@ -83,7 +105,7 @@ const [selectAdmComicionamento,setSlectAdmComicionamento] = useState(false)
           bgcolor={mdDawn ? theme.palette.background.default : undefined}
         >
           <List>
-            <ListItem sx={{ padding: 3, }}>
+            <ListItem sx={{ padding: 3 }}>
               <ListItemButton
                 selected={selectPaginaInicial}
                 onClick={navigatePaginainicial}
@@ -96,7 +118,10 @@ const [selectAdmComicionamento,setSlectAdmComicionamento] = useState(false)
             </ListItem>
 
             <ListItem sx={{ padding: 3 }}>
-              <ListItemButton>
+              <ListItemButton
+                selected={selectNovaVenda}
+                onClick={navigateNovaVenda}
+              >
                 <Icon>add_circle_outline</Icon>
                 <ListItemText>
                   <Typography sx={{ marginLeft: 2 }}>Nova venda</Typography>
@@ -117,32 +142,25 @@ const [selectAdmComicionamento,setSlectAdmComicionamento] = useState(false)
             </ListItem>
 
             <ListItem sx={{ padding: 3 }}>
-              <ListItemButton selected={selectAdmVendedores} onClick={navigateVendedores}>
+              <ListItemButton
+                selected={selectAdmVendedores}
+                onClick={navigateVendedores}
+              >
                 <Icon>attach_money</Icon>
                 <ListItemText>
-                  <Typography sx={{ marginLeft: 2 }}>
-                    Vendedores
-                  </Typography>
+                  <Typography sx={{ marginLeft: 2 }}>Vendedores</Typography>
                 </ListItemText>
               </ListItemButton>
             </ListItem>
-
-           
-           
 
             <ListItem sx={{ padding: 3 }}>
-              <ListItemButton>
-                <Icon>attach_money</Icon>
+              <ListItemButton selected={selectAdm} onClick={navigateAdminidtrativo}>
+                <Icon>admin_panel_settings</Icon>
                 <ListItemText>
-                  <Typography sx={{ marginLeft: 2 }}>
-                    Comicionamento
-                  </Typography>
+                  <Typography sx={{ marginLeft: 2 }}>Administrativo</Typography>
                 </ListItemText>
               </ListItemButton>
             </ListItem>
-
-           
-
           </List>
         </Box>
       </Drawer>
@@ -175,9 +193,7 @@ const [selectAdmComicionamento,setSlectAdmComicionamento] = useState(false)
           </Typography>
         </Box>
 
-    
-       {children}
-      
+        {children}
       </Box>
     </>
   );

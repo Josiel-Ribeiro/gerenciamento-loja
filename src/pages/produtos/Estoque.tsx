@@ -59,7 +59,7 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
 
 
   useEffect(()=>{
- if(totalCount <= 5){
+ if(totalCount <= 4){
   setPaginaAtual(1)
  }
   },[totalCount])
@@ -98,6 +98,8 @@ const smDawn = useMediaQuery(theme.breakpoints.down('sm'))
       }
     });
   }, [paginaAtual,totalCount, busca]);
+
+ 
 
 
 

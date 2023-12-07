@@ -1,7 +1,11 @@
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
   Icon,
+  InputAdornment,
   LinearProgress,
   Pagination,
   Paper,
@@ -12,6 +16,7 @@ import {
   TableFooter,
   TableHead,
   TableRow,
+  TextField,
   Typography,
   useMediaQuery,
   useTheme,
@@ -26,13 +31,22 @@ export const ListaVendedores = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [rows, setRows] = useState<TVendedores[]>([]);
   const [isloading, setIsloading] = useState(false);
+  const [openAvisoDelete, setOpenAvisoDelete] = useState(false);
+  const [itemDelete, setItemDelete] = useState(0);
 
   const theme = useTheme();
   const mdDawn = useMediaQuery(theme.breakpoints.down("md"));
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
+
+  const funcBusca = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBusca(e.target.value);
+    setPaginaAtual(1);
+  };
   useEffect(() => {
+    setIsloading(true);
     VendedoresService.getFilter(paginaAtual, busca).then((result) => {
+      setIsloading(false);
       if (result instanceof Error) {
         return result instanceof Error;
       } else {
@@ -42,8 +56,38 @@ export const ListaVendedores = () => {
     });
   }, [paginaAtual, busca, totalCount]);
 
+  const setIdDelete = (id: number) => {
+    setOpenAvisoDelete(true);
+    setItemDelete(id);
+  };
+
+  const deleteItem = () => {
+    VendedoresService.remove(itemDelete);
+    setOpenAvisoDelete(false);
+    setRows(rows.filter((item) => item.id !== itemDelete));
+    navigate("/vendedores");
+  };
+
+  const setParamsVendedor = (id: string) => {
+    navigate(`/vendedores/edicao/${id}`);
+  };
+
   return (
     <Box>
+      <Box margin={3}>
+        <TextField
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Icon>search</Icon>
+              </InputAdornment>
+            ),
+          }}
+          onChange={funcBusca}
+          size="small"
+          placeholder="Buscar Vendedor"
+        />
+      </Box>
       <TableContainer
         component={Paper}
         variant="outlined"
@@ -75,10 +119,10 @@ export const ListaVendedores = () => {
             {rows.map((item) => (
               <TableRow key={item.id}>
                 <TableCell>
-                  <Button>
+                  <Button onClick={() => setParamsVendedor(item.id.toString())}>
                     <Icon>edit</Icon>
                   </Button>
-                  <Button>
+                  <Button onClick={() => setIdDelete(item.id)}>
                     <Icon>delete</Icon>
                   </Button>
                 </TableCell>
@@ -117,8 +161,27 @@ export const ListaVendedores = () => {
       </TableContainer>
 
       <Box display={"flex"} justifyContent={"center"}>
-        <Button variant="contained" onClick={()=>navigate("/vendedores/novo")}>Novo Registro</Button>
+        <Button
+          variant="contained"
+          onClick={() => navigate("/vendedores/novo")}
+        >
+          Novo Registro
+        </Button>
       </Box>
+
+      <Dialog open={openAvisoDelete} onClose={() => setOpenAvisoDelete(false)}>
+        <DialogTitle bgcolor={theme.palette.background.default}>
+          Deseja realmente excluir este registro?
+        </DialogTitle>
+        <DialogActions sx={{ bgcolor: theme.palette.background.default }}>
+          <Button onClick={() => setOpenAvisoDelete(false)} variant="outlined">
+            Cancelar
+          </Button>
+          <Button onClick={deleteItem} variant="outlined">
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

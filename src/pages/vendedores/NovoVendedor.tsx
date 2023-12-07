@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  Icon,
   Snackbar,
   TextField,
   Typography,
@@ -23,12 +24,14 @@ type TForm = {
 };
 export const NovoVendedor = () => {
   const theme = useTheme();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [telefone, setTelefone] = useState("");
-  const [open,setOpen] = useState(false)
-  const [rows, setRows] = useState<TVendedores[]>([])
-  const [message,setMessage] = useState("Novo Vendedor adicionado com sucesso")
+  const [open, setOpen] = useState(false);
+  const [rows, setRows] = useState<TVendedores[]>([]);
+  const [message, setMessage] = useState(
+    "Novo Vendedor adicionado com sucesso"
+  );
 
   const {
     register,
@@ -48,53 +51,42 @@ export const NovoVendedor = () => {
     }
   };
 
- const save = (dados:Omit<TVendedores,"id">)=>{
-const validar = rows.find(item => item.nome.toLocaleLowerCase() === dados.nome.toLocaleLowerCase())
-if(validar === undefined){
-
-    VendedoresService.create(dados)
-    .then((result)=>{
-        if(result instanceof Error){
-            alert("erro ao adicionar")
-        }else{
-         
- setOpen(true)
-
-          
+  const save = (dados: Omit<TVendedores, "id">) => {
+    const validar = rows.find(
+      (item) => item.nome.toLocaleLowerCase() === dados.nome.toLocaleLowerCase()
+    );
+    if (validar === undefined) {
+      VendedoresService.create(dados).then((result) => {
+        if (result instanceof Error) {
+          alert("erro ao adicionar");
+        } else {
+          setOpen(true);
         }
-    })
-}else{
-    setMessage("Ja existe um registro com este nome")
-    
-    setOpen(true)
-}
- }
+      });
+    } else {
+      setMessage("Ja existe um registro com este nome");
 
+      setOpen(true);
+    }
+  };
 
- const retorno = ()=>{
-    setOpen(false)
-    navigate("/vendedores")
+  const retorno = () => {
+    setOpen(false);
+    navigate("/vendedores");
+  };
 
- }
-
-  useEffect(()=>{
-    VendedoresService.getAll()
-    .then((result)=>{
-       if(result instanceof Error){
-           alert("erro na busca de vendedores")
-       }else{
-          
-         setRows(result)
-       }
-    })
-     },[])
-     
-     
-  
+  useEffect(() => {
+    VendedoresService.getAll().then((result) => {
+      if (result instanceof Error) {
+        alert("erro na busca de vendedores");
+      } else {
+        setRows(result);
+      }
+    });
+  }, []);
 
   return (
     <Box
-      
       height={"100vh"}
       display={"flex"}
       justifyContent={"center"}
@@ -131,22 +123,23 @@ if(validar === undefined){
         <TextField
           label="Numero de telefone"
           error={errors.telefone ? true : false}
-          onInput={handleSetTlefone}
           value={telefone}
           size="small"
           variant="filled"
           sx={{ width: theme.spacing(28) }}
           {...register("telefone", { required: true, maxLength: 11 })}
+          onChange={handleSetTlefone}
         />
         <Button type="submit">Adicionar</Button>
+        <Button onClick={() => navigate("/vendedores")}>
+          <Icon>keyboard_return</Icon>
+        </Button>
       </Box>
-      <Dialog open={open} onClose={()=>setOpen(false)}>
-      <DialogTitle>
-        {message}
-      </DialogTitle>
-      <DialogActions>
-        <Button onClick={retorno}>Voltar</Button>
-      </DialogActions>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle>{message}</DialogTitle>
+        <DialogActions>
+          <Button onClick={retorno}>Voltar</Button>
+        </DialogActions>
       </Dialog>
     </Box>
   );

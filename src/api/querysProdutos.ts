@@ -34,7 +34,7 @@ const getFilter = async (page = 3, filter = ""): Promise<TResponse | Error> => {
 };
 
 // ...
-const getAll = async():Promise<TResponse | Error> =>{
+const getAll = async():Promise<TProdutos[]| Error> =>{
  
 
   const result = await axios.get("http://localhost:3333/produtos")
