@@ -1,5 +1,4 @@
 import {
-  
   Box,
   Button,
   Dialog,
@@ -9,9 +8,7 @@ import {
   FormControl,
   Icon,
   InputLabel,
-
   LinearProgress,
-
   MenuItem,
   OutlinedInput,
   Pagination,
@@ -22,20 +19,12 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-
-
-
   TableFooter,
-
-
-
   TableHead,
   TableRow,
   TextField,
   Typography,
-
   useMediaQuery,
-
   useTheme,
 } from "@mui/material";
 import { TProdutos, produtosServices } from "../../api/querysProdutos";
@@ -49,7 +38,7 @@ import { format } from "date-fns";
 export type TItemVendido = {
   id: number;
   produto: string;
-  valor:number;
+  valor: number;
   quantidade: number;
   estoqueMin: number;
   quantidadeVendida: number;
@@ -58,18 +47,18 @@ export type TItemVendido = {
 
 export const NovaVenda = () => {
   const theme = useTheme();
-  const mdDawn = useMediaQuery(theme.breakpoints.down("md"))
- const [modalVenda,setModalVenda] = useState(false)
- const [modalOpen, setModalOpen] = useState(false);
- const [opemVendaConfirmada,setOpemVendaConfirmada] = useState(false)
- const [isloading,setIsloading] = useState(true)
- 
+  const mdDawn = useMediaQuery(theme.breakpoints.down("md"));
+  const [modalVenda, setModalVenda] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [opemVendaConfirmada, setOpemVendaConfirmada] = useState(false);
+  const [isloading, setIsloading] = useState(true);
+
   const [rows, setRows] = useState<TProdutos[]>();
   const [count, setCout] = useState(0);
   const [busca, setBusca] = useState("");
   const [paginaAtual, setPaginaAtual] = useState(1);
 
-const [listaVendedores,setListavendedores] = useState<TVendedores[]>()
+  const [listaVendedores, setListavendedores] = useState<TVendedores[]>();
 
   const [nome, setNome] = useState("");
   const [itemId, setItemId] = useState(0);
@@ -79,18 +68,22 @@ const [listaVendedores,setListavendedores] = useState<TVendedores[]>()
   const [quantidadeVendida, setQuantidadeVendida] = useState(1);
   const [itensVendidos, setItensVendidos] = useState<TItemVendido[]>();
   const [total, setTotal] = useState(0);
-  const [ nomeVendedor,setNomeVendedor] = useState("")
+  const [nomeVendedor, setNomeVendedor] = useState("");
 
   useEffect(() => {
-    produtosServices.getFilter(paginaAtual, busca).then((result) => {
-      setIsloading(false)
-      if (result instanceof Error) {
-        alert("Erro na busca");
-      } else {
-        setRows(result.data);
-        setCout(result.count);
-      }
-    });
+    setIsloading(false);
+    if (busca.length > 2) {
+      produtosServices.getFilter(paginaAtual, busca).then((result) => {
+        if (result instanceof Error) {
+          alert("Erro na busca");
+        } else {
+          setRows(result.data);
+          setCout(result.count);
+        }
+      });
+    } else {
+      setRows([]);
+    }
   }, [busca, paginaAtual]);
 
   const setItem = (
@@ -98,14 +91,14 @@ const [listaVendedores,setListavendedores] = useState<TVendedores[]>()
     produto: string,
     quantidade: number,
     estoqueMin: number,
-    valor:number
+    valor: number
   ) => {
     setItemId(id);
     setNome(produto);
     setvalor(Number(valor));
     setQuantidade(Number(quantidade));
     setEstoqueMin(estoqueMin);
-    setvalor(valor)
+    setvalor(valor);
     setModalOpen(true);
   };
 
@@ -113,19 +106,19 @@ const [listaVendedores,setListavendedores] = useState<TVendedores[]>()
     const newItem = {
       id: itemId,
       produto: nome,
-      valor:valor,
+      valor: valor,
       quantidade: quantidade,
       estoqueMin: estoqueMin,
       quantidadeVendida: quantidadeVendida,
       valorTotal: quantidadeVendida * valor,
     };
-console.log(newItem)
+    console.log(newItem);
     const verificar = itensVendidos?.find(
       (item) => item.produto === newItem.produto
     );
 
     if (verificar === undefined) {
-        setItensVendidos((prevItens) => [...(prevItens || []), newItem]);
+      setItensVendidos((prevItens) => [...(prevItens || []), newItem]);
       setQuantidade((valorAnterior) => valorAnterior - quantidadeVendida);
       setModalOpen(false);
     } else if (
@@ -148,10 +141,10 @@ console.log(newItem)
   };
 
   useEffect(() => {
-    if(itensVendidos){
+    if (itensVendidos) {
       let newTotal = 0;
-    itensVendidos?.map((item) => (newTotal = item.valorTotal + newTotal));
-    setTotal(newTotal);
+      itensVendidos?.map((item) => (newTotal = item.valorTotal + newTotal));
+      setTotal(newTotal);
     }
   }, [itensVendidos]);
 
@@ -159,45 +152,42 @@ console.log(newItem)
     setItensVendidos(itensVendidos?.filter((item) => item.id !== id));
   };
 
-  const handleGetName = (e: SelectChangeEvent)=>{
-   setNomeVendedor(e.target.value)
-  }
+  const handleGetName = (e: SelectChangeEvent) => {
+    setNomeVendedor(e.target.value);
+  };
 
-  useEffect(()=>{
-    VendedoresService.getAll()
-    .then((result)=>{
-        if(result instanceof Error){
-            return
-        }else{
-            setListavendedores(result)
-        }
-    })
-  },[])
+  useEffect(() => {
+    VendedoresService.getAll().then((result) => {
+      if (result instanceof Error) {
+        return;
+      } else {
+        setListavendedores(result);
+      }
+    });
+  }, []);
 
-  const finalizarVenda = ()=>{
+  const finalizarVenda = () => {
+    const dataAtual = new Date();
 
-const dataAtual = new Date()
+    const dataFormatada = format(dataAtual, "dd/MM/yyyy");
 
-const dataFormatada = format(dataAtual, 'dd/MM/yyyy');
-
-    let dados:Omit<TVendas,"id"> = {
-      vendedor:nomeVendedor,
+    let dados: Omit<TVendas, "id"> = {
+      vendedor: nomeVendedor,
       venda: itensVendidos,
-      total:total,
-      data: dataFormatada
-    }
-   vendasServices.addVenda(dados)
-   .then((result)=>{
-    if(result instanceof Error){
-      alert("erro ao adicionar nova venda")
-    }else{
-      setOpemVendaConfirmada(true)
-    }
-   })
+      total: total,
+      data: dataFormatada,
+    };
+    vendasServices.addVenda(dados).then((result) => {
+      if (result instanceof Error) {
+        alert("erro ao adicionar nova venda");
+      } else {
+        setOpemVendaConfirmada(true);
+      }
+    });
 
-   setItensVendidos([])
-   setModalVenda(false)
-  }
+    setItensVendidos([]);
+    setModalVenda(false);
+  };
 
   return (
     <Box>
@@ -242,10 +232,7 @@ const dataFormatada = format(dataAtual, 'dd/MM/yyyy');
                         item.nome,
                         item.quantidade,
                         item.estoqueMin,
-                        item.valor,
-                        
-                       
-                        
+                        item.valor
                       )
                     }
                     size="small"
@@ -257,7 +244,7 @@ const dataFormatada = format(dataAtual, 'dd/MM/yyyy');
               </TableRow>
             ))}
           </TableBody>
-          
+
           {isloading && (
             <TableFooter>
               <TableRow>
@@ -269,12 +256,14 @@ const dataFormatada = format(dataAtual, 'dd/MM/yyyy');
           )}
         </Table>
       </TableContainer>
-      <Pagination
-        count={Math.ceil(count / 5)}
-        page={paginaAtual}
-        onChange={(e, valor) => setPaginaAtual(valor)}
-        sx={{ backgroundColor: theme.palette.primary.main }}
-      />
+      {count > 3 && (
+        <Pagination
+          count={Math.ceil(count / 3)}
+          page={paginaAtual}
+          onChange={(e, valor) => setPaginaAtual(valor)}
+          sx={{ backgroundColor: theme.palette.primary.main }}
+        />
+      )}
 
       <Box
         marginTop={2}
@@ -285,11 +274,12 @@ const dataFormatada = format(dataAtual, 'dd/MM/yyyy');
       >
         <Box component={Paper} padding={2} width={"80%"}>
           <Box display={"flex"} justifyContent={"space-between"}>
-           
-            <Typography sx={{ color: green[600], marginTop:1}}>
+            <Typography sx={{ color: green[600], marginTop: 1 }}>
               Total: {total.toFixed(2)}
             </Typography>
-            <Button sx={{marginTop:1}} onClick={()=>setModalVenda(true)}>Finalizar Venda</Button>
+            <Button sx={{ marginTop: 1 }} onClick={() => setModalVenda(true)}>
+              Finalizar Venda
+            </Button>
           </Box>
           <TableContainer
             sx={{ overflowx: "scroll", maxHeight: theme.spacing(20) }}
@@ -317,15 +307,11 @@ const dataFormatada = format(dataAtual, 'dd/MM/yyyy');
                   </TableRow>
                 ))}
               </TableBody>
-
-              
-         
             </Table>
           </TableContainer>
         </Box>
       </Box>
 
-      
       <Dialog open={modalOpen} onClose={() => setModalOpen(false)}>
         <DialogTitle
           sx={{
@@ -344,7 +330,11 @@ const dataFormatada = format(dataAtual, 'dd/MM/yyyy');
         >
           <TextField
             value={
-              quantidadeVendida < 0? 1:undefined  || quantidadeVendida > quantidade?quantidade:quantidadeVendida
+              quantidadeVendida < 0
+                ? 1
+                : undefined || quantidadeVendida > quantidade
+                ? quantidade
+                : quantidadeVendida
             }
             onChange={(e) => setQuantidadeVendida(Number(e.target.value))}
             size="small"
@@ -356,43 +346,61 @@ const dataFormatada = format(dataAtual, 'dd/MM/yyyy');
         </DialogActions>
       </Dialog>
 
-<Dialog open={modalVenda}  onClose={()=>setModalVenda(false)} sx={{marginLeft:!mdDawn?32:undefined}}>
-    <DialogContentText sx={{width:theme.spacing(42),backgroundColor:theme.palette.background.default}}>
-        <Typography sx={{marginTop:2,textAlign:"center"}}>Valor Total da venda {total}</Typography>
-    </DialogContentText>
-    <DialogActions  sx={{width:theme.spacing(40),backgroundColor:theme.palette.background.default}}>
-        <FormControl sx={{ m: 1, width: 300 }}>
+      <Dialog
+        open={modalVenda}
+        onClose={() => setModalVenda(false)}
+        sx={{ marginLeft: !mdDawn ? 32 : undefined }}
+      >
+        <DialogContentText
+          sx={{
+            width: theme.spacing(42),
+            backgroundColor: theme.palette.background.default,
+          }}
+        >
+          <Typography sx={{ marginTop: 2, textAlign: "center" }}>
+            Valor Total da venda {total}
+          </Typography>
+        </DialogContentText>
+        <DialogActions
+          sx={{
+            width: theme.spacing(40),
+            backgroundColor: theme.palette.background.default,
+          }}
+        >
+          <FormControl sx={{ m: 1, width: 300 }}>
             <InputLabel>Vendedor responsavel</InputLabel>
-            <Select value={nomeVendedor} onChange={handleGetName}  input={<OutlinedInput label="Vendedor responsavel" />}>
-            
-             {
-                listaVendedores?.map(item =>
-                    
-                    <MenuItem key={item.id} value={item.nome}>
-                    {item.nome}
-                    </MenuItem>
-                    )
-             }
-
+            <Select
+              value={nomeVendedor}
+              onChange={handleGetName}
+              input={<OutlinedInput label="Vendedor responsavel" />}
+            >
+              {listaVendedores?.map((item) => (
+                <MenuItem key={item.id} value={item.nome}>
+                  {item.nome}
+                </MenuItem>
+              ))}
             </Select>
             <Button onClick={finalizarVenda}>Conformar</Button>
-        </FormControl>
-    </DialogActions>
-</Dialog>
+          </FormControl>
+        </DialogActions>
+      </Dialog>
 
-
-<Dialog open={opemVendaConfirmada} sx={{marginLeft:!mdDawn?29:undefined}}>
-<DialogTitle sx={{width:mdDawn?200:400,backgroundColor:theme.palette.background.default}}>
-  Venda adicionada com sucesso!
-</DialogTitle>
-<DialogActions sx={{bgcolor:theme.palette.background.default}}>
-  <Button onClick={()=>setOpemVendaConfirmada(false)}>Voltar</Button>
-</DialogActions>
-</Dialog>
-  
-
+      <Dialog
+        open={opemVendaConfirmada}
+        sx={{ marginLeft: !mdDawn ? 29 : undefined }}
+      >
+        <DialogTitle
+          sx={{
+            width: mdDawn ? 200 : 400,
+            backgroundColor: theme.palette.background.default,
+          }}
+        >
+          Venda adicionada com sucesso!
+        </DialogTitle>
+        <DialogActions sx={{ bgcolor: theme.palette.background.default }}>
+          <Button onClick={() => setOpemVendaConfirmada(false)}>Voltar</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
-
-

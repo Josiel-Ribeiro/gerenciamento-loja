@@ -11,7 +11,7 @@
       "nome": "Máquina de Café",
       "valor": 100,
       "quantidade": 3,
-      "estoqueMin": 1,
+      "estoqueMin": 10,
       "id": 14
     },
     {
@@ -41,6 +41,27 @@
       "quantidade": "12",
       "estoqueMin": "32",
       "id": 18
+    },
+    {
+      "nome": "teste5",
+      "valor": "12",
+      "quantidade": "12",
+      "estoqueMin": "12",
+      "id": 19
+    },
+    {
+      "nome": "teste7",
+      "valor": "11",
+      "quantidade": "22",
+      "estoqueMin": "12",
+      "id": 20
+    },
+    {
+      "nome": "ovo",
+      "valor": "1",
+      "quantidade": "10",
+      "estoqueMin": "5",
+      "id": 21
     }
   ],
   "vendedores": [
@@ -280,6 +301,68 @@
       "total": 127,
       "data": "07/12/2023",
       "id": 11
+    },
+    {
+      "vendedor": "Saulo Ricardo",
+      "venda": [
+        {
+          "id": 11,
+          "produto": "Livro",
+          "valor": 7,
+          "quantidade": 15,
+          "estoqueMin": 16,
+          "quantidadeVendida": 1,
+          "valorTotal": 7
+        },
+        {
+          "id": 14,
+          "produto": "Máquina de Café",
+          "valor": 100,
+          "quantidade": 3,
+          "estoqueMin": 1,
+          "quantidadeVendida": 1,
+          "valorTotal": 100
+        },
+        {
+          "id": 15,
+          "produto": "teste",
+          "valor": "12.23",
+          "quantidade": 12,
+          "estoqueMin": "10",
+          "quantidadeVendida": 1,
+          "valorTotal": 12.23
+        },
+        {
+          "id": 16,
+          "produto": "mochila",
+          "valor": "120",
+          "quantidade": 19,
+          "estoqueMin": "10",
+          "quantidadeVendida": 1,
+          "valorTotal": 120
+        },
+        {
+          "id": 17,
+          "produto": "teclado",
+          "valor": "60",
+          "quantidade": 11,
+          "estoqueMin": "9",
+          "quantidadeVendida": 1,
+          "valorTotal": 60
+        },
+        {
+          "id": 18,
+          "produto": "teste 2",
+          "valor": "23",
+          "quantidade": 12,
+          "estoqueMin": "32",
+          "quantidadeVendida": 1,
+          "valorTotal": 23
+        }
+      ],
+      "total": 322.23,
+      "data": "07/12/2023",
+      "id": 12
     }
   ]
 }

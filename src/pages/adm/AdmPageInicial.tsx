@@ -34,11 +34,7 @@ export const AdmPageInicial = () => {
   const mdDawn = useMediaQuery(theme.breakpoints.down("md"));
   const lgDawn = useMediaQuery(theme.breakpoints.down("lg"));
 
-  
   const [rows, setrows] = useState<TVendas[] | undefined>();
-
-  
- 
 
   const [dataInicial, setDataInicial] = useState("");
   const [datafinal, setDataFinal] = useState("");
@@ -82,16 +78,13 @@ export const AdmPageInicial = () => {
       if (result instanceof Error) {
         alert("Erro na busca");
       } else {
-          let newList = result.data.filter(
-            (item) =>
-              new Date(item.data) >= new Date(dataInicial) &&
-              new Date(item.data) <= new Date(datafinal)
-          );
-          setrows(newList);
-         
-         
-        }
-      
+        let newList = result.data.filter(
+          (item) =>
+            new Date(item.data) >= new Date(dataInicial) &&
+            new Date(item.data) <= new Date(datafinal)
+        );
+        setrows(newList);
+      }
     });
   };
 
@@ -102,22 +95,23 @@ export const AdmPageInicial = () => {
           alert("erro na Busca");
         } else {
           setrows(result.data);
-          
         }
       });
     }
   }, [lgDawn]);
 
   return (
-    <Box sx={{ margin: 3 }} >
+    <Box sx={{ margin: 3 }}>
       <Typography variant="h5" sx={{ textAlign: "center", marginBottom: 3 }}>
         Relatorio de vendas
       </Typography>
-{!lgDawn   &&  <Typography sx={{marginBottom:2}}>Selecione a data</Typography>}
-      <Box display={"flex"} justifyContent={"space-between"} >
+      {!lgDawn && (
+        <Typography sx={{ marginBottom: 2 }}>Selecione a data</Typography>
+      )}
+      <Box display={"flex"} justifyContent={"space-between"}>
         {!lgDawn && (
           <Box display={"flex"} gap={5} marginRight={5}>
-            <LocalizationProvider dateAdapter={AdapterDateFns} >
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 format="dd/MM/yyyy"
                 onChange={handleDataInicialChange}
@@ -129,7 +123,7 @@ export const AdmPageInicial = () => {
                 sx={{ width: 180 }}
               />
             </LocalizationProvider>
-            <Button  onClick={filtrarPorData} >Buscar</Button>
+            <Button onClick={filtrarPorData}>Buscar</Button>
           </Box>
         )}
 
@@ -138,43 +132,47 @@ export const AdmPageInicial = () => {
         </Typography>
       </Box>
 
-      <Box component={Paper} display={"flex"} flexDirection={"column"} marginTop={5} maxWidth={theme.spacing(200)}>
-
-
-
-      <TableContainer sx={{  height: theme.spacing(40),overflowY:"auto" }} >
-
-      
-        <Table stickyHeader>
-       
-        <TableHead >
-    <TableRow >
-      <TableCell sx={{color:theme.palette.primary.main}}>Vendedor</TableCell>
-      <TableCell sx={{color:theme.palette.primary.main}}>Data</TableCell>
-      <TableCell sx={{color:theme.palette.primary.main}}>Valor</TableCell>
-      <TableCell sx={{color:theme.palette.primary.main}}>Venda</TableCell>
-    </TableRow>
-  </TableHead>
-          <TableBody>
-            {rows?.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell>{item.vendedor}</TableCell>
-                <TableCell >{item.data}</TableCell>
-                <TableCell>{item.total}</TableCell>
-                <TableCell>
-                  <Button onClick={() => openVenda(item.venda)}>
-                    <Icon>folder_open</Icon>
-                  </Button>
+      <Box
+        component={Paper}
+        display={"flex"}
+        flexDirection={"column"}
+        marginTop={5}
+        maxWidth={theme.spacing(200)}
+      >
+        <TableContainer sx={{ height: theme.spacing(30), overflowY: "auto" }}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ color: theme.palette.primary.main }}>
+                  Vendedor
+                </TableCell>
+                <TableCell sx={{ color: theme.palette.primary.main }}>
+                  Data
+                </TableCell>
+                <TableCell sx={{ color: theme.palette.primary.main }}>
+                  Valor
+                </TableCell>
+                <TableCell sx={{ color: theme.palette.primary.main }}>
+                  Venda
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-          
-        </Table>
-      </TableContainer>
-
-
-
+            </TableHead>
+            <TableBody>
+              {rows?.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.vendedor}</TableCell>
+                  <TableCell>{item.data}</TableCell>
+                  <TableCell>{item.total}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => openVenda(item.venda)}>
+                      <Icon>folder_open</Icon>
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
       {openList && (
         <Dialog
@@ -205,7 +203,6 @@ export const AdmPageInicial = () => {
                   </TableRow>
                 ))}
               </TableBody>
-              
             </Table>
           </DialogActions>
         </Dialog>
