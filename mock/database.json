@@ -1,13 +1,6 @@
 {
   "produtos": [
     {
-      "nome": "Livro",
-      "valor": 7,
-      "quantidade": 15,
-      "estoqueMin": 16,
-      "id": 11
-    },
-    {
       "nome": "Máquina de Café",
       "valor": 100,
       "quantidade": 3,
@@ -20,13 +13,6 @@
       "quantidade": "12",
       "estoqueMin": "10",
       "id": 15
-    },
-    {
-      "nome": "mochila",
-      "valor": "120",
-      "quantidade": "19",
-      "estoqueMin": "10",
-      "id": 16
     },
     {
       "nome": "teclado",
@@ -62,6 +48,13 @@
       "quantidade": "10",
       "estoqueMin": "5",
       "id": 21
+    },
+    {
+      "nome": "teste10",
+      "valor": "12",
+      "quantidade": "10",
+      "estoqueMin": "22",
+      "id": 22
     }
   ],
   "vendedores": [
@@ -363,6 +356,289 @@
       "total": 322.23,
       "data": "07/12/2023",
       "id": 12
+    },
+    {
+      "vendedor": "Saulo Ricardo",
+      "venda": [
+        {
+          "id": 15,
+          "produto": "teste",
+          "valor": "12.23",
+          "quantidade": 12,
+          "estoqueMin": "10",
+          "quantidadeVendida": 1,
+          "valorTotal": 12.23
+        }
+      ],
+      "total": 12.23,
+      "data": "08/12/2023",
+      "id": 13
+    },
+    {
+      "vendedor": "Victor Lucas",
+      "venda": [
+        {
+          "id": 15,
+          "produto": "teste",
+          "valor": "12.23",
+          "quantidade": 12,
+          "estoqueMin": "10",
+          "quantidadeVendida": 1,
+          "valorTotal": 12.23
+        },
+        {
+          "id": 18,
+          "produto": "teste 2",
+          "valor": "23",
+          "quantidade": 12,
+          "estoqueMin": "32",
+          "quantidadeVendida": 1,
+          "valorTotal": 23
+        },
+        {
+          "id": 19,
+          "produto": "teste5",
+          "valor": "12",
+          "quantidade": 12,
+          "estoqueMin": "12",
+          "quantidadeVendida": 2,
+          "valorTotal": 24
+        }
+      ],
+      "total": 59.230000000000004,
+      "data": "08/12/2023",
+      "id": 14
+    },
+    {
+      "vendedor": "teste",
+      "venda": [
+        {
+          "id": 16,
+          "produto": "mochila",
+          "valor": "120",
+          "quantidade": 19,
+          "estoqueMin": "10",
+          "quantidadeVendida": 1,
+          "valorTotal": 120
+        }
+      ],
+      "total": 120,
+      "data": "08/12/2023",
+      "id": 15
+    },
+    {
+      "vendedor": "Saulo Ricardo",
+      "total": 0,
+      "data": "08/12/2023",
+      "id": 16
+    },
+    {
+      "vendedor": "Saulo Ricardo",
+      "venda": [
+        {
+          "id": 15,
+          "produto": "teste",
+          "valor": "12.23",
+          "quantidade": 12,
+          "estoqueMin": "10",
+          "quantidadeVendida": 2,
+          "valorTotal": 24.46
+        },
+        {
+          "id": 18,
+          "produto": "teste 2",
+          "valor": "23",
+          "quantidade": 12,
+          "estoqueMin": "32",
+          "quantidadeVendida": 2,
+          "valorTotal": 46
+        }
+      ],
+      "total": 70.46000000000001,
+      "data": "08/12/2023",
+      "id": 17
+    },
+    {
+      "vendedor": "Saulo Ricardo",
+      "venda": [
+        {
+          "id": 16,
+          "produto": "mochila",
+          "valor": "120",
+          "quantidade": 19,
+          "estoqueMin": "10",
+          "quantidadeVendida": 1,
+          "valorTotal": 120
+        }
+      ],
+      "total": 120,
+      "data": "08/12/2023",
+      "id": 18
+    },
+    {
+      "vendedor": "josiel lucas",
+      "venda": [
+        {
+          "id": 15,
+          "produto": "teste",
+          "valor": "12.23",
+          "quantidade": 12,
+          "estoqueMin": "10",
+          "quantidadeVendida": 2,
+          "valorTotal": 24.46
+        },
+        {
+          "id": 19,
+          "produto": "teste5",
+          "valor": "12",
+          "quantidade": 12,
+          "estoqueMin": "12",
+          "quantidadeVendida": 2,
+          "valorTotal": 24
+        }
+      ],
+      "total": 48.46,
+      "data": "08/12/2023",
+      "id": 19
+    },
+    {
+      "vendedor": "Victor Lucas",
+      "venda": [
+        {
+          "id": 15,
+          "produto": "teste",
+          "valor": "12.23",
+          "quantidade": 12,
+          "estoqueMin": "10",
+          "quantidadeVendida": 1,
+          "valorTotal": 12.23
+        }
+      ],
+      "total": 12.23,
+      "data": "08/12/2023",
+      "id": 20
+    },
+    {
+      "vendedor": "josiel lucas",
+      "venda": [
+        {
+          "id": 15,
+          "produto": "teste",
+          "valor": "12.23",
+          "quantidade": 12,
+          "estoqueMin": "10",
+          "quantidadeVendida": 2,
+          "valorTotal": 24.46
+        },
+        {
+          "id": 18,
+          "produto": "teste 2",
+          "valor": "23",
+          "quantidade": 12,
+          "estoqueMin": "32",
+          "quantidadeVendida": 2,
+          "valorTotal": 46
+        }
+      ],
+      "total": 70.46000000000001,
+      "data": "08/12/2023",
+      "id": 21
+    },
+    {
+      "vendedor": "josiel lucas",
+      "venda": [
+        {
+          "id": 21,
+          "produto": "ovo",
+          "valor": "1",
+          "quantidade": 10,
+          "estoqueMin": "5",
+          "quantidadeVendida": 3,
+          "valorTotal": 3
+        },
+        {
+          "id": 18,
+          "produto": "teste 2",
+          "valor": "23",
+          "quantidade": 12,
+          "estoqueMin": "32",
+          "quantidadeVendida": 1,
+          "valorTotal": 23
+        },
+        {
+          "id": 19,
+          "produto": "teste5",
+          "valor": "12",
+          "quantidade": 12,
+          "estoqueMin": "12",
+          "quantidadeVendida": 1,
+          "valorTotal": 12
+        }
+      ],
+      "total": 38,
+      "data": "12/12/2023",
+      "id": 22
+    },
+    {
+      "vendedor": "teste",
+      "venda": [
+        {
+          "id": 15,
+          "produto": "teste",
+          "valor": "12.23",
+          "quantidade": 12,
+          "estoqueMin": "10",
+          "quantidadeVendida": 2,
+          "valorTotal": 24.46
+        },
+        {
+          "id": 18,
+          "produto": "teste 2",
+          "valor": "23",
+          "quantidade": 12,
+          "estoqueMin": "32",
+          "quantidadeVendida": 1,
+          "valorTotal": 23
+        },
+        {
+          "id": 21,
+          "produto": "ovo",
+          "valor": "1",
+          "quantidade": 10,
+          "estoqueMin": "5",
+          "quantidadeVendida": 1,
+          "valorTotal": 1
+        }
+      ],
+      "total": 48.46,
+      "data": "12/12/2023",
+      "id": 23
+    },
+    {
+      "vendedor": "thiago",
+      "venda": [
+        {
+          "id": 15,
+          "produto": "teste",
+          "valor": "12.23",
+          "quantidade": 12,
+          "estoqueMin": "10",
+          "quantidadeVendida": 2,
+          "valorTotal": 24.46
+        },
+        {
+          "id": 18,
+          "produto": "teste 2",
+          "valor": "23",
+          "quantidade": 12,
+          "estoqueMin": "32",
+          "quantidadeVendida": 2,
+          "valorTotal": 46
+        }
+      ],
+      "total": 70.46000000000001,
+      "data": "12/12/2023",
+      "id": 24
     }
   ]
 }

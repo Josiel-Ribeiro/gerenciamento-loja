@@ -24,7 +24,8 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
+
 
 export const Estoque = () => {
   const [listaOriginal, setListaOriginal] = useState<TProdutos[]>();
@@ -36,8 +37,10 @@ export const Estoque = () => {
   const [busca, setBusca] = useState("");
   const [idDelete, setIdDelete] = useState(0);
   const [openAviso, setOpenAviso] = useState(false);
-  const [reposicao, setReposicao] = useState(0);
+  const [reposicao, setReposicao] = useState(0)
+  const [showValidation,setShowValidation] = useState(true) 
 
+ 
   const theme = useTheme();
   const smDawn = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
@@ -96,6 +99,7 @@ export const Estoque = () => {
     );
     if (newList) {
       setRows(newList);
+      setShowValidation(false)
 
       return;
     } else {
@@ -103,6 +107,13 @@ export const Estoque = () => {
     }
   };
 
+
+ const voltar = (e: { preventDefault: () => void; })=>{
+ 
+  e.preventDefault();
+  window.location.reload();
+ }
+ 
   useEffect(() => {
     produtosServices.getAll().then((result) => {
       if (result instanceof Error) {
@@ -146,9 +157,10 @@ export const Estoque = () => {
         sx={{
           margin: 1,
           width: "auto",
+          height:showValidation?"auto":theme.spacing(40)
         }}
       >
-        <Table>
+        <Table stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell sx={{ padding: smDawn ? "0 5px" : "0 50px" }}>
@@ -214,7 +226,7 @@ export const Estoque = () => {
             </TableFooter>
           )}
         </Table>
-        {totalCount > 0 && totalCount > 3 && (
+         { showValidation && totalCount > 0 && totalCount > 3 && (
           <Pagination
             count={Math.ceil(totalCount / 3)}
             page={paginaAtual}
@@ -230,28 +242,35 @@ export const Estoque = () => {
         gap={3}
       >
         <Box width={"100%"} display={"flex"} justifyContent={"center"} gap={2}>
-          <Box>
-            <Typography color={"red"}>
-              <Button onClick={filtrarPendentes}>Reposição pendente</Button>{" "}
-              {reposicao}
-            </Typography>
-          </Box>
+          <Box display={"flex"} flexDirection={"column"}>
 
-          <Box marginRight={8} marginTop={0.5}>
-            <Typography color={theme.palette.primary.main}>
-              Total {totalCount}
+            <Typography color={"red"}>
+
+              <Button onClick={filtrarPendentes}>Reposição pendente</Button>{" "}
+              {reposicao} 
             </Typography>
+          
+            <Button onClick={voltar}><Icon>arrow_back_ios</Icon></Button>
+            
           </Box>
+          <Typography marginTop={0.5}>
+          Total: {totalCount}
+          </Typography>
+        
         </Box>
+        
       </Box>
 
       <Dialog open={openAviso} onClose={() => setOpenAviso(false)}>
-        <DialogTitle sx={{ color: "red" }}>Aviso!</DialogTitle>
-        <DialogContentText sx={{ padding: 1 }}>
+        <DialogTitle sx={{ color: "red",background:theme.palette.background.default }}>Aviso!</DialogTitle>
+        <DialogContentText sx={{ padding: 1,background:theme.palette.background.default  }}>
+          <Typography >
           Deseja realmente excluir este registro?
+          </Typography>
+          
         </DialogContentText>
 
-        <DialogActions>
+        <DialogActions sx={{background:theme.palette.background.default}}>
           <Button onClick={() => setOpenAviso(false)}>Cancelar</Button>
           <Button onClick={funcRemoveItem}>Confirmar</Button>
         </DialogActions>

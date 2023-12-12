@@ -1,7 +1,5 @@
 import {
-  Accordion,
-  AccordionActions,
-  AccordionSummary,
+ 
   Box,
   Button,
   Drawer,
@@ -9,14 +7,15 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
+
   ListItemText,
   Paper,
-  TableFooter,
+ 
   Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { blue } from "@mui/material/colors";
 
 import { ReactNode, useState } from "react";
 import { useNavigate, useResolvedPath } from "react-router-dom";
@@ -29,6 +28,7 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
   const [selectNovaVenda, setSelectNovaVenda] = useState(false);
   const [selectAdmVendedores, setSlectAdmVendedores] = useState(false);
   const [selectAdm, setSelectAdm] = useState(false);
+  const [selectComicionamento, setSelectComicionamento] = useState(false);
 
   const [selectNumeroVendas, setSelectenumeroVendas] = useState(false);
   const [selectCadastro, setSelectCadastro] = useState(false);
@@ -45,6 +45,7 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
     setSelectAdm(false);
     setSlectAdmVendedores(false);
     setSelectNovaVenda(false);
+    setSelectComicionamento(false)
   };
   const navigateEstoque = () => {
     navigate("/estoque");
@@ -55,6 +56,8 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
     setSelectAdm(false);
     setSlectAdmVendedores(false);
     setSelectNovaVenda(false);
+    setSelectComicionamento(false)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
   };
 
   const navigateVendedores = () => {
@@ -66,6 +69,7 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
     setSelectAdm(false);
     setSlectAdmVendedores(true);
     setSelectNovaVenda(false);
+    setSelectComicionamento(false)
   };
 
   const navigateNovaVenda = () => {
@@ -77,6 +81,7 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
     setSelectCadastro(false);
     setSelectAdm(false);
     setSlectAdmVendedores(false);
+    setSelectComicionamento(false)
   };
 
   const navigateAdminidtrativo= () => {
@@ -88,7 +93,24 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
     setSelectCadastro(false);
     setSelectAdm(true);
     setSlectAdmVendedores(false);
+    setSelectComicionamento(false)
+  
   };
+
+  const navigateComicionamento= () => {
+    navigate("/comicionamento");
+    setSelectNovaVenda(false);
+    setSelectedPagianaInicial(false);
+    setSelectEstoque(false);
+    setSelectenumeroVendas(false);
+    setSelectCadastro(false);
+    setSelectAdm(false);
+    setSlectAdmVendedores(false);
+    setSelectComicionamento(true)
+  
+  };
+
+
 
   return (
     <>
@@ -146,7 +168,7 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
                 selected={selectAdmVendedores}
                 onClick={navigateVendedores}
               >
-                <Icon>attach_money</Icon>
+                <Icon>groups</Icon>
                 <ListItemText>
                   <Typography sx={{ marginLeft: 2 }}>Vendedores</Typography>
                 </ListItemText>
@@ -155,12 +177,25 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
 
             <ListItem sx={{ padding: 3 }}>
               <ListItemButton selected={selectAdm} onClick={navigateAdminidtrativo}>
-                <Icon>admin_panel_settings</Icon>
+                <Icon>attach_money</Icon>
                 <ListItemText>
-                  <Typography sx={{ marginLeft: 2 }}>Administrativo</Typography>
+                  <Typography sx={{ marginLeft: 2 }}>Vendas</Typography>
                 </ListItemText>
               </ListItemButton>
             </ListItem>
+
+            <ListItem sx={{ padding: 3 }}>
+              <ListItemButton selected={selectComicionamento} onClick={navigateComicionamento}>
+                <Icon>monetization_on</Icon>
+                <ListItemText>
+                  <Typography sx={{ marginLeft: 2 }}>Comicionamento</Typography>
+                </ListItemText>
+              </ListItemButton>
+            </ListItem>
+
+
+
+
           </List>
         </Box>
       </Drawer>
@@ -188,6 +223,7 @@ export const MenuLateral = ({ children }: { children: ReactNode }) => {
             textAlign={"center"}
             marginBottom={mdDawn ? 2 : undefined}
             padding={!mdDawn ? 2 : undefined}
+            sx={{color:blue[900],fontWeight:'bold'}}
           >
             Gerenciamento
           </Typography>

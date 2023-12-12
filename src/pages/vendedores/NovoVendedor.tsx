@@ -105,7 +105,7 @@ export const NovoVendedor = () => {
           gap: 4,
         }}
       >
-        <Typography variant="h5">Novo Registro</Typography>
+        <Typography variant="h5"> Novo Registro</Typography>
         <TextField
           label="Nome"
           size="small"

@@ -66,7 +66,7 @@ const info ={
         margin={2}
         
       >
-        <Typography variant="h4">Edicão de registro</Typography>
+        <Typography variant="h4" sx={{color:theme.palette.primary.main}}>Edicão de registro</Typography>
         <TextField
         onChange={(e)=>setNome(e.target.value)}
         

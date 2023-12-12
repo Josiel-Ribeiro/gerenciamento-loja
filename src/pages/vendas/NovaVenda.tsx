@@ -106,7 +106,7 @@ export const NovaVenda = () => {
     const newItem = {
       id: itemId,
       produto: nome,
-      valor: valor,
+      valor:valor,
       quantidade: quantidade,
       estoqueMin: estoqueMin,
       quantidadeVendida: quantidadeVendida,
@@ -256,7 +256,7 @@ export const NovaVenda = () => {
           )}
         </Table>
       </TableContainer>
-      {count > 3 && (
+      {count > 3 && busca.length > 3 && (
         <Pagination
           count={Math.ceil(count / 3)}
           page={paginaAtual}

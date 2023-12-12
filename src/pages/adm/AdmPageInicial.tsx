@@ -21,6 +21,7 @@ import {
 import { useEffect, useState } from "react";
 import { TVendas, vendasServices } from "../../api/queryVendas";
 import { TItemVendido } from "../vendas/NovaVenda";
+import * as XLSX from 'xlsx';
 
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
@@ -53,9 +54,9 @@ export const AdmPageInicial = () => {
 
   const handleDataInicialChange = (date: Date | null) => {
     if (date !== null) {
-      console.log("Data inicial selecionada:", date);
+     
       const dataformatada = isValid(date) ? format(date, "dd/MM/yyyy") : "";
-      console.log("Data formatada:", dataformatada);
+
       setDataInicial(dataformatada);
     } else {
       setDataInicial("");
@@ -64,9 +65,7 @@ export const AdmPageInicial = () => {
 
   const handleDataFinalChange = (date: Date | null) => {
     if (date !== null) {
-      console.log("Data final selecionada:", date);
       const dataformatada = isValid(date) ? format(date, "dd/MM/yyyy") : "";
-      console.log("Data formatada:", dataformatada);
       setDataFinal(dataformatada);
     } else {
       setDataFinal("");
@@ -100,6 +99,22 @@ export const AdmPageInicial = () => {
     }
   }, [lgDawn]);
 
+  const relatorio = (dados: Omit<TVendas, 'id' | 'venda'>[], nome: string) => {
+    const ws = XLSX.utils.json_to_sheet(dados);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Relatorio');
+    XLSX.writeFile(wb, `${nome}.xlsx`);
+  };
+  
+  const exportarRelatorios = () => {
+    if (rows) {
+      const newList = rows.map(({ id, venda, ...resto }) => ({
+        ...resto, // Mantém todas as outras propriedades
+      }));
+      relatorio(newList, 'Relatorios');
+    }
+  };
+  
   return (
     <Box sx={{ margin: 3 }}>
       <Typography variant="h5" sx={{ textAlign: "center", marginBottom: 3 }}>
@@ -139,7 +154,7 @@ export const AdmPageInicial = () => {
         marginTop={5}
         maxWidth={theme.spacing(200)}
       >
-        <TableContainer sx={{ height: theme.spacing(30), overflowY: "auto" }}>
+        <TableContainer sx={{ height:"40vh", overflowY: "auto" }}>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
@@ -162,7 +177,7 @@ export const AdmPageInicial = () => {
                 <TableRow key={item.id}>
                   <TableCell>{item.vendedor}</TableCell>
                   <TableCell>{item.data}</TableCell>
-                  <TableCell>{item.total}</TableCell>
+                  <TableCell>{item.total.toFixed(2)}</TableCell>
                   <TableCell>
                     <Button onClick={() => openVenda(item.venda)}>
                       <Icon>folder_open</Icon>
@@ -173,6 +188,7 @@ export const AdmPageInicial = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <Box><Button variant="outlined" onClick={exportarRelatorios} sx={{marginTop:2 ,marginBottom:1,marginLeft:1}}>export Relatorio</Button></Box>
       </Box>
       {openList && (
         <Dialog
@@ -189,9 +205,9 @@ export const AdmPageInicial = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Produto</TableCell>
-                  <TableCell>quantidade</TableCell>
-                  <TableCell>Valor</TableCell>
+                  <TableCell sx={{color:theme.palette.primary.main}}>Produto</TableCell>
+                  <TableCell sx={{color:theme.palette.primary.main}}>quantidade</TableCell>
+                  <TableCell sx={{color:theme.palette.primary.main}}>Valor</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -204,6 +220,7 @@ export const AdmPageInicial = () => {
                 ))}
               </TableBody>
             </Table>
+            
           </DialogActions>
         </Dialog>
       )}

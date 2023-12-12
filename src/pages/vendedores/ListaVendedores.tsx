@@ -165,6 +165,7 @@ export const ListaVendedores = () => {
           variant="contained"
           onClick={() => navigate("/vendedores/novo")}
         >
+          <Icon sx={{marginRight:1}}>person_add</Icon >
           Novo Registro
         </Button>
       </Box>

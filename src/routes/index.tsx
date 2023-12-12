@@ -8,6 +8,11 @@ import { NovoVendedor } from "../pages/vendedores/NovoVendedor";
 import { EdicaoVendedor } from "../pages/vendedores/EdicaoVendedor";
 import { NovaVenda } from "../pages/vendas/NovaVenda";
 import { AdmPageInicial } from "../pages/adm/AdmPageInicial";
+import { Comicionamento } from "../pages/comicionamento/Comicionamento";
+
+
+
+
 
 export const AppRoutes = () => {
   return (
@@ -23,6 +28,13 @@ export const AppRoutes = () => {
       <Route path="/vendedores/novo" element={<NovoVendedor/>}/>
       <Route path="/vendedores/edicao/:id" element={<EdicaoVendedor/>}/>
       <Route path="/nova-venda" element={<NovaVenda/>}/>
+
+
+      <Route path="/comicionamento" element={<Comicionamento/>}/>
+
+     
+
+
 
       <Route path="*" element={<Navigate to={"/pagina-inicial"} />} />
     </Routes>
